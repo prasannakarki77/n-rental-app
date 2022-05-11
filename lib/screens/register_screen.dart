@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:nrental/screens/register_screen.dart';
+
 import '../components/customShape.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreemState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreemState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneNoController = TextEditingController();
   String password = '';
-  bool isPasswordVisible = true;
+  bool isPasswordVisible = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     usernameController.addListener(() => setState(() {}));
+    emailController.addListener(() => setState(() {}));
+    phoneNoController.addListener(() => setState(() {}));
   }
 
-//werwerdsfsdfsdf
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -53,10 +56,15 @@ class _LoginScreemState extends State<LoginScreen> {
           padding: const EdgeInsets.all(30),
           child: ListView(
             children: [
+              usernameField(),
               const SizedBox(
                 height: 30,
               ),
-              usernameField(),
+              emailField(),
+              const SizedBox(
+                height: 30,
+              ),
+              phoneNoField(),
               const SizedBox(
                 height: 30,
               ),
@@ -69,7 +77,7 @@ class _LoginScreemState extends State<LoginScreen> {
                 height: 50,
                 child: ElevatedButton(
                   child: const Text(
-                    'Sign In',
+                    'Sign Up',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
@@ -88,13 +96,13 @@ class _LoginScreemState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(
-                height: 60,
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const Text(
-                    "Not Registered yet?",
+                    "Already Registered ?",
                     style: TextStyle(fontSize: 18),
                   ),
                   const SizedBox(
@@ -104,7 +112,7 @@ class _LoginScreemState extends State<LoginScreen> {
                     height: 40,
                     child: ElevatedButton(
                       child: const Text(
-                        'Sign Up',
+                        'Sign In',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -117,7 +125,7 @@ class _LoginScreemState extends State<LoginScreen> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/registerScreen');
+                        Navigator.pushNamed(context, '/loginScreen');
                       },
                     ),
                   ),
@@ -153,6 +161,84 @@ class _LoginScreemState extends State<LoginScreen> {
               : IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () => usernameController.clear(),
+                ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: Color.fromARGB(255, 234, 98, 7),
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20)),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Color.fromARGB(255, 135, 142, 135),
+              width: 2.0,
+            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        textInputAction: TextInputAction.done,
+      );
+
+  Widget emailField() => TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        controller: emailController,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+        decoration: InputDecoration(
+          hintText: "Enter email address",
+          labelText: "Email Address",
+          prefixIcon: const Icon(
+            Icons.mail,
+            size: 28,
+          ),
+          suffixIcon: emailController.text.isEmpty
+              ? Container(
+                  width: 0,
+                )
+              : IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => emailController.clear(),
+                ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: Color.fromARGB(255, 234, 98, 7),
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(20)),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Color.fromARGB(255, 135, 142, 135),
+              width: 2.0,
+            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        textInputAction: TextInputAction.done,
+      );
+
+  Widget phoneNoField() => TextFormField(
+        keyboardType: TextInputType.number,
+        controller: phoneNoController,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+        decoration: InputDecoration(
+          hintText: "Enter phone number",
+          labelText: "Phone Number",
+          prefixIcon: const Icon(
+            Icons.call,
+            size: 28,
+          ),
+          suffixIcon: phoneNoController.text.isEmpty
+              ? Container(
+                  width: 0,
+                )
+              : IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => phoneNoController.clear(),
                 ),
           focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(
