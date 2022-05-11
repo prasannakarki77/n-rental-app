@@ -41,7 +41,7 @@ class _LoginScreemState extends State<LoginScreen> {
                     height: 20,
                   ),
                   Center(
-                    child: Image.asset("assets/images/Login-logo.png"),
+                    child: Image.asset("assets/images/logo.png"),
                   ),
                 ],
               ),
@@ -90,9 +90,10 @@ class _LoginScreemState extends State<LoginScreen> {
                 height: 60,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const Text(
-                    "Not Registered?",
+                    "Not Registered yet?",
                     style: TextStyle(fontSize: 18),
                   ),
                   const SizedBox(
