@@ -82,8 +82,7 @@ class _LoginScreemState extends State<LoginScreen> {
                     ),
                   ),
                   onPressed: () {
-                    print(usernameController.text);
-                    print(password);
+                    Navigator.pushNamed(context, '/dashboardScreen');
                   },
                 ),
               ),
