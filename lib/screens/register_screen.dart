@@ -17,7 +17,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isPasswordVisible = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     usernameController.addListener(() => setState(() {}));
     emailController.addListener(() => setState(() {}));
@@ -38,7 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Container(
               height: 250,
               width: MediaQuery.of(context).size.width,
-              color: Colors.red,
+              color: Color.fromRGBO(255, 114, 94, 1),
               child: Column(
                 children: [
                   const SizedBox(
@@ -89,10 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderRadius: BorderRadius.circular(10), // <-- Radius
                     ),
                   ),
-                  onPressed: () {
-                    print(usernameController.text);
-                    print(password);
-                  },
+                  onPressed: () {},
                 ),
               ),
               const SizedBox(
