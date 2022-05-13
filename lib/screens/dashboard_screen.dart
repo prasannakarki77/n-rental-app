@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:curved_navigation_bar/curved_navigation_bar.dart";
 import 'package:nrental/models/vehicle.dart';
+import 'package:nrental/screens/home_screen.dart';
+import 'package:nrental/screens/testScreen.dart';
 
 import '../components/customShape.dart';
 
@@ -12,86 +14,25 @@ class DashboardScreem extends StatefulWidget {
 }
 
 class _DashboardScreemState extends State<DashboardScreem> {
-  int bottomNavIndex = 2;
+  final padding = const EdgeInsets.symmetric(horizontal: 20);
+  final navigationKey = GlobalKey<CurvedNavigationBarState>();
+  int index = 2;
 
-  Color bgColorCar = const Color.fromRGBO(243, 243, 243, 1);
-  Color bgColorBike = const Color.fromRGBO(243, 243, 243, 1);
-  Color bgColorBus = const Color.fromRGBO(243, 243, 243, 1);
-  Color bgColorVan = const Color.fromRGBO(243, 243, 243, 1);
-  String carIcon = "car-red.png";
-  String bikeIcon = "bike-red.png";
-  String busIcon = "bus-red.png";
-  String vanIcon = "van-red.png";
-
-  _iconClicked(String vehicle) {
-    if (vehicle == "car") {
-      carIcon = "car-white.png";
-      bikeIcon = "bike-red.png";
-      busIcon = "bus-red.png";
-      vanIcon = "van-red.png";
-      bgColorCar = Color.fromRGBO(255, 114, 94, 1);
-      bgColorBike =
-          bgColorVan = bgColorBus = const Color.fromRGBO(243, 243, 243, 1);
-    }
-    if (vehicle == "bike") {
-      carIcon = "car-red.png";
-      bikeIcon = "bike-white.png";
-      busIcon = "bus-red.png";
-      vanIcon = "van-red.png";
-      bgColorBike = Color.fromRGBO(255, 114, 94, 1);
-      bgColorCar =
-          bgColorVan = bgColorBus = const Color.fromRGBO(243, 243, 243, 1);
-    }
-    if (vehicle == "van") {
-      carIcon = "car-red.png";
-      bikeIcon = "bike-red.png";
-      busIcon = "bus-red.png";
-      vanIcon = "van-white.png";
-      bgColorVan = Color.fromRGBO(255, 114, 94, 1);
-      bgColorCar =
-          bgColorBike = bgColorBus = const Color.fromRGBO(243, 243, 243, 1);
-    }
-    if (vehicle == "bus") {
-      carIcon = "car-red.png";
-      bikeIcon = "bike-red.png";
-      busIcon = "bus-white.png";
-      vanIcon = "van-red.png";
-      bgColorBus = Color.fromRGBO(255, 114, 94, 1);
-      bgColorCar =
-          bgColorVan = bgColorBike = const Color.fromRGBO(243, 243, 243, 1);
-    }
-  }
-
-  List<Vehicle> lstVehicle = [
-    Vehicle(
-      name: "Rolls Royce",
-      image: "rollsRoyce.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Rolls Royce",
-      image: "rollsRoyce.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Rolls Royce",
-      image: "rollsRoyce.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Rolls Royce",
-      image: "rollsRoyce.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Rolls Royce",
-      image: "rollsRoyce.png",
-      cost: "9000",
-    )
+  final screens = [
+    HomeScreen(),
+    TestScreen(),
+    HomeScreen(),
+    HomeScreen(),
+    HomeScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    const username = "Prasanna Karki";
+    const email = "pkarki44@gmail.com";
+    const profileImg =
+        "https://i.pinimg.com/564x/4a/83/2c/4a832c89d14710986b9c85a3fed4e526--detective-avatar.jpg";
+
     final items = <Widget>[
       const Icon(
         Icons.person,
@@ -116,9 +57,87 @@ class _DashboardScreemState extends State<DashboardScreem> {
     ];
     return SafeArea(
       child: Scaffold(
+        // drawer: const NavDrawerWidget(),
+        drawer: Drawer(
+          child: Material(
+            color: Color.fromARGB(255, 77, 67, 65),
+            child: ListView(
+              children: [
+                buildHeader(
+                  profileImg: profileImg,
+                  username: username,
+                  email: email,
+                ),
+                Container(
+                  padding: padding,
+                  child: Column(
+                    children: [
+                      buildMenuItem(
+                        text: "Home",
+                        icon: Icons.home,
+                        onClicked: () => setState(() {
+                          Navigator.of(context).pop();
+                          index = 2;
+                        }),
+                      ),
+                      buildMenuItem(
+                        text: "Search",
+                        icon: Icons.search,
+                        onClicked: () => setState(() {
+                          Navigator.of(context).pop();
+                          index = 1;
+                        }),
+                      ),
+                      buildMenuItem(
+                        text: "Profile",
+                        icon: Icons.person,
+                        onClicked: () => setState(() {
+                          Navigator.of(context).pop();
+                          index = 0;
+                        }),
+                      ),
+                      buildMenuItem(
+                        text: "Bookings",
+                        icon: Icons.car_rental,
+                        onClicked: () => setState(() {
+                          Navigator.of(context).pop();
+                          index = 3;
+                        }),
+                      ),
+                      buildMenuItem(
+                        text: "Favourites",
+                        icon: Icons.bookmark_added,
+                        onClicked: () => setState(() {
+                          Navigator.of(context).pop();
+                          index = 4;
+                        }),
+                      ),
+                      const Divider(
+                        color: Colors.white70,
+                      ),
+                      buildMenuItem(
+                        text: "Settings",
+                        icon: Icons.settings,
+                        onClicked: () => setState(() {
+                          Navigator.of(context).pop();
+                          index = 5;
+                        }),
+                      ),
+                      buildMenuItem(
+                        text: "Logout",
+                        icon: Icons.logout_outlined,
+                        // onClicked: () => selectedItem(context, 6),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
         // extendBody: true,
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
           toolbarHeight: 130,
           backgroundColor: Colors.transparent,
           elevation: 0.0,
@@ -130,71 +149,34 @@ class _DashboardScreemState extends State<DashboardScreem> {
               color: const Color.fromRGBO(255, 114, 94, 1),
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(
-                      Icons.menu,
-                      size: 40,
-                      color: Colors.white,
-                    ),
-                    Image.asset(
-                      "assets/images/logo-sm.png",
-                    )
-                  ],
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Image.asset(
+                    "assets/images/logo-sm.png",
+                  ),
                 ),
               ),
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  vehicleCategory(bgColorCar, carIcon, "car"),
-                  vehicleCategory(bgColorBike, bikeIcon, "bike"),
-                  vehicleCategory(bgColorVan, vanIcon, "van"),
-                  vehicleCategory(bgColorBus, busIcon, "bus")
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              SingleChildScrollView(
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 30,
-                    mainAxisExtent: 230,
-                    crossAxisSpacing: 20,
-                  ),
-                  padding: const EdgeInsets.all(8),
-                  itemCount: lstVehicle.length,
-                  itemBuilder: (context, index) {
-                    return vehicleCard(index);
-                  },
-                ),
-              )
-            ],
-          ),
-        ),
+        body: screens[index],
         bottomNavigationBar: Theme(
           data: Theme.of(context)
               .copyWith(iconTheme: const IconThemeData(color: Colors.white)),
           child: CurvedNavigationBar(
-            index: bottomNavIndex,
+            key: navigationKey,
+            index: index,
+            height: 60,
             backgroundColor: Colors.transparent,
             buttonBackgroundColor: const Color.fromRGBO(255, 114, 94, 1),
-            color: const Color.fromARGB(255, 0, 0, 0),
+            color: Color.fromARGB(255, 77, 67, 65),
             items: items,
             animationCurve: Curves.easeInOut,
             animationDuration: const Duration(milliseconds: 500),
             onTap: (index) {
-              //Handle button tap
+              setState(() {
+                this.index = index;
+              });
             },
           ),
         ),
@@ -202,107 +184,81 @@ class _DashboardScreemState extends State<DashboardScreem> {
     );
   }
 
-  Widget vehicleCategory(bgColor, icon, vehicleType) {
-    return InkWell(
-      onTap: () => setState(() {
-        _iconClicked("$vehicleType");
-      }),
-      child: AnimatedContainer(
-        height: 70,
-        width: 80,
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(9),
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.25),
-              spreadRadius: 0,
-              blurRadius: 4,
-              offset: Offset(0, 4),
+  Widget buildHeader({
+    required String profileImg,
+    required String username,
+    required String email,
+  }) =>
+      Container(
+        padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(profileImg),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  username,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  email,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
+                )
+              ],
             )
           ],
         ),
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.fastOutSlowIn,
-        child: Center(
-          child: Image.asset("assets/images/$icon"),
-        ),
-      ),
+      );
+
+  Widget buildMenuItem({
+    required String text,
+    required IconData icon,
+    VoidCallback? onClicked,
+  }) {
+    const color = Colors.white;
+    return ListTile(
+      leading: Icon(icon, color: color),
+      title: Text(text,
+          style: const TextStyle(
+            color: color,
+            fontSize: 18,
+          )),
+      onTap: onClicked,
     );
   }
 
-  Widget vehicleCard(index) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.25),
-            spreadRadius: 0,
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Image.asset(
-              "assets/images/${lstVehicle[index].image}",
-              height: 90,
-              fit: BoxFit.contain,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "${lstVehicle[index].name}",
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              "Rs ${lstVehicle[index].cost}/day",
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w800,
-                color: Colors.green,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              width: 80,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: const Color.fromRGBO(255, 114, 94, 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // <-- Radius
-                  ),
-                ),
-                onPressed: () => {},
-                child: const Text(
-                  "Book",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // void selectedItem(BuildContext context, int index) {
+  //   Navigator.of(context).pop();
+  //   int navDrawerIndex;
+  //   switch (index) {
+  //     case 0:
+  //       navDrawerIndex = 0;
+  //       Navigator.pushNamed(context, "/dashboardScreen",
+  //           arguments: navDrawerIndex);
+  //       break;
+  //     case 1:
+  //       // navDrawerIndex = 1;
+  //       setState(() {
+  //         index = 1;
+  //       });
+
+  //       break;
+  //   }
+  // }
 }
