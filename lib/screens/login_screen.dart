@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nrental/screens/register_screen.dart';
 import '../components/customShape.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,7 +14,6 @@ class _LoginScreemState extends State<LoginScreen> {
   bool isPasswordVisible = true;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     usernameController.addListener(() => setState(() {}));
   }
@@ -35,7 +33,7 @@ class _LoginScreemState extends State<LoginScreen> {
             child: Container(
               height: 250,
               width: MediaQuery.of(context).size.width,
-              color: Colors.red,
+              color: Color.fromRGBO(255, 114, 94, 1),
               child: Column(
                 children: [
                   const SizedBox(
