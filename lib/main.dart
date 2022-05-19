@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nrental/screens/dashboard_screen.dart';
 import 'package:nrental/screens/login_screen.dart';
+import 'package:nrental/screens/testScreen.dart';
 import 'screens/register_screen.dart';
 import 'screens/splash_screen.dart';
 
@@ -20,6 +21,7 @@ void main() {
         '/registerScreen': (context) => const RegisterScreen(),
         '/loginScreen': (context) => const LoginScreen(),
         '/dashboardScreen': (context) => const DashboardScreem(),
+        '/testScreen': (context) => const TestScreen(),
       },
     ),
   );
