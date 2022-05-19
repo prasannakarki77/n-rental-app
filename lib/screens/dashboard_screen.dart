@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import "package:curved_navigation_bar/curved_navigation_bar.dart";
-import 'package:nrental/models/vehicle.dart';
 import 'package:nrental/screens/home_screen.dart';
 import 'package:nrental/screens/testScreen.dart';
 
@@ -18,7 +17,7 @@ class _DashboardScreemState extends State<DashboardScreem> {
   final navigationKey = GlobalKey<CurvedNavigationBarState>();
   int index = 2;
 
-  final screens = [
+  final screens = const [
     HomeScreen(),
     TestScreen(),
     HomeScreen(),
@@ -60,7 +59,7 @@ class _DashboardScreemState extends State<DashboardScreem> {
         // drawer: const NavDrawerWidget(),
         drawer: Drawer(
           child: Material(
-            color: Color.fromARGB(255, 77, 67, 65),
+            color: const Color.fromARGB(255, 77, 67, 65),
             child: ListView(
               children: [
                 buildHeader(
@@ -136,30 +135,34 @@ class _DashboardScreemState extends State<DashboardScreem> {
           ),
         ),
         // extendBody: true,
-        appBar: AppBar(
-          // automaticallyImplyLeading: false,
-          toolbarHeight: 130,
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          flexibleSpace: ClipPath(
-            clipper: CustomShape(),
-            child: Container(
-              height: 120,
-              width: MediaQuery.of(context).size.width,
-              color: const Color.fromRGBO(255, 114, 94, 1),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Image.asset(
-                    "assets/images/logo-sm.png",
+        body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverAppBar(
+              // automaticallyImplyLeading: false,
+              toolbarHeight: 125,
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+              flexibleSpace: ClipPath(
+                clipper: CustomShape(),
+                child: Container(
+                  height: 120,
+                  width: MediaQuery.of(context).size.width,
+                  color: const Color.fromRGBO(255, 114, 94, 1),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Image.asset(
+                        "assets/images/logo-sm.png",
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
+          ],
+          body: screens[index],
         ),
-        body: screens[index],
         bottomNavigationBar: Theme(
           data: Theme.of(context)
               .copyWith(iconTheme: const IconThemeData(color: Colors.white)),

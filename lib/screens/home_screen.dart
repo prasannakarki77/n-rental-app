@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/vehicle.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({ Key? key }) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -92,42 +92,132 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Container(
       child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  vehicleCategory(bgColorCar, carIcon, "car"),
-                  vehicleCategory(bgColorBike, bikeIcon, "bike"),
-                  vehicleCategory(bgColorVan, vanIcon, "van"),
-                  vehicleCategory(bgColorBus, busIcon, "bus")
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              SingleChildScrollView(
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 30,
-                    mainAxisExtent: 250,
-                    crossAxisSpacing: 20,
-                  ),
-                  padding: const EdgeInsets.all(8),
-                  itemCount: lstVehicle.length,
-                  itemBuilder: (context, index) {
-                    return vehicleCard(index);
-                  },
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                vehicleCategory(bgColorCar, carIcon, "car"),
+                vehicleCategory(bgColorBike, bikeIcon, "bike"),
+                vehicleCategory(bgColorVan, vanIcon, "van"),
+                vehicleCategory(bgColorBus, busIcon, "bus")
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(255, 233, 214, 1),
+                  borderRadius: BorderRadius.circular(9),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.25),
+                      spreadRadius: 0,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      Image.network(
+                        "https://www.picng.com/upload/tesla_car/png_tesla_car_23349.png",
+                        height: 130,
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            "Rent a Tesla",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            "30% OFF",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color.fromRGBO(255, 114, 94, 1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10), // <-- Radius
+                              ),
+                            ),
+                            onPressed: () => {},
+                            child: const Text(
+                              "Book now",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: const [
+                    Text(
+                      "Explore",
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.w900),
+                    ),
+                    Icon(
+                      Icons.play_arrow_rounded,
+                      size: 30,
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 30,
+                  mainAxisExtent: 250,
+                  crossAxisSpacing: 20,
+                ),
+                padding: const EdgeInsets.all(8),
+                itemCount: lstVehicle.length,
+                itemBuilder: (context, index) {
+                  return vehicleCard(index);
+                },
+              ),
+            )
+          ],
         ),
+      ),
     );
   }
+
   Widget vehicleCategory(bgColor, icon, vehicleType) {
     return InkWell(
       onTap: () => setState(() {
@@ -156,7 +246,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-    Widget vehicleCard(index) {
+
+  Widget vehicleCard(index) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
