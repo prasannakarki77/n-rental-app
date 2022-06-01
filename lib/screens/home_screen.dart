@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nrental/models/brand.dart';
 
 import '../models/vehicle.dart';
 
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bikeIcon = "bike-red.png";
       busIcon = "bus-red.png";
       vanIcon = "van-red.png";
-      bgColorCar = Color.fromRGBO(255, 114, 94, 1);
+      bgColorCar = const Color.fromRGBO(255, 114, 94, 1);
       bgColorBike =
           bgColorVan = bgColorBus = const Color.fromRGBO(243, 243, 243, 1);
     }
@@ -34,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bikeIcon = "bike-white.png";
       busIcon = "bus-red.png";
       vanIcon = "van-red.png";
-      bgColorBike = Color.fromRGBO(255, 114, 94, 1);
+      bgColorBike = const Color.fromRGBO(255, 114, 94, 1);
       bgColorCar =
           bgColorVan = bgColorBus = const Color.fromRGBO(243, 243, 243, 1);
     }
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bikeIcon = "bike-red.png";
       busIcon = "bus-red.png";
       vanIcon = "van-white.png";
-      bgColorVan = Color.fromRGBO(255, 114, 94, 1);
+      bgColorVan = const Color.fromRGBO(255, 114, 94, 1);
       bgColorCar =
           bgColorBike = bgColorBus = const Color.fromRGBO(243, 243, 243, 1);
     }
@@ -52,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bikeIcon = "bike-red.png";
       busIcon = "bus-white.png";
       vanIcon = "van-red.png";
-      bgColorBus = Color.fromRGBO(255, 114, 94, 1);
+      bgColorBus = const Color.fromRGBO(255, 114, 94, 1);
       bgColorCar =
           bgColorVan = bgColorBike = const Color.fromRGBO(243, 243, 243, 1);
     }
@@ -88,132 +89,168 @@ class _HomeScreenState extends State<HomeScreen> {
       cost: "9000",
     )
   ];
+
+  List<Brand> lstBrand = [
+    Brand(
+        image:
+            "https://i0.wp.com/zeevector.com/wp-content/uploads/2021/02/TVS-Logo-PNG.png?fit=1088%2C255&ssl=1"),
+    Brand(
+      image:
+          "https://e7.pngegg.com/pngimages/773/525/png-clipart-yamaha-motor-company-yamaha-corporation-motorcycle-logo-pixels-kingdom-gmbh-motorcycle-text-trademark.png",
+    ),
+    Brand(
+      image:
+          "https://logos-world.net/wp-content/uploads/2021/03/Hyundai-Logo-2011-2017.png",
+    ),
+    Brand(
+      image:
+          "https://cdn.freebiesupply.com/logos/large/2x/honda-7-logo-png-transparent.png",
+    ),
+    Brand(
+      image:
+          "https://www.freepnglogos.com/uploads/toyota-logo-png/toyota-logos-brands-logotypes-0.png",
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                vehicleCategory(bgColorCar, carIcon, "car"),
-                vehicleCategory(bgColorBike, bikeIcon, "bike"),
-                vehicleCategory(bgColorVan, vanIcon, "van"),
-                vehicleCategory(bgColorBus, busIcon, "bus")
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 233, 214, 1),
-                  borderRadius: BorderRadius.circular(9),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.25),
-                      spreadRadius: 0,
-                      blurRadius: 10,
-                      offset: Offset(0, 4),
-                    )
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Image.network(
-                        "https://www.picng.com/upload/tesla_car/png_tesla_car_23349.png",
-                        height: 130,
-                      ),
-                      Column(
-                        children: [
-                          const Text(
-                            "Rent a Tesla",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          const Text(
-                            "30% OFF",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: const Color.fromRGBO(255, 114, 94, 1),
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(10), // <-- Radius
-                              ),
-                            ),
-                            onPressed: () => {},
-                            child: const Text(
-                              "Book now",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              vehicleCategory(bgColorCar, carIcon, "car"),
+              vehicleCategory(bgColorBike, bikeIcon, "bike"),
+              vehicleCategory(bgColorVan, vanIcon, "van"),
+              vehicleCategory(bgColorBus, busIcon, "bus")
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(255, 233, 214, 1),
+                borderRadius: BorderRadius.circular(9),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.25),
+                    spreadRadius: 0,
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
+                  )
+                ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Align(
-                alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
                 child: Row(
-                  children: const [
-                    Text(
-                      "Explore",
-                      style:
-                          TextStyle(fontSize: 23, fontWeight: FontWeight.w900),
+                  children: [
+                    Image.network(
+                      "https://www.picng.com/upload/tesla_car/png_tesla_car_23349.png",
+                      height: 130,
                     ),
-                    Icon(
-                      Icons.play_arrow_rounded,
-                      size: 30,
+                    Column(
+                      children: [
+                        const Text(
+                          "Rent a Tesla",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        const Text(
+                          "30% OFF",
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color.fromRGBO(255, 114, 94, 1),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(10), // <-- Radius
+                            ),
+                          ),
+                          onPressed: () => {},
+                          child: const Text(
+                            "Book now",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 ),
               ),
             ),
-            SingleChildScrollView(
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 30,
-                  mainAxisExtent: 250,
-                  crossAxisSpacing: 20,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: SizedBox(
+              height: 50,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: lstBrand.length,
+                separatorBuilder: (context, _) => const SizedBox(
+                  width: 40,
                 ),
-                padding: const EdgeInsets.all(8),
-                itemCount: lstVehicle.length,
-                itemBuilder: (context, index) {
-                  return vehicleCard(index);
-                },
+                itemBuilder: (context, index) => brandCard(lstBrand[index]),
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: const [
+                  Text(
+                    "Explore",
+                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.w900),
+                  ),
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    size: 30,
+                  )
+                ],
+              ),
+            ),
+          ),
+          SingleChildScrollView(
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 30,
+                mainAxisExtent: 250,
+                crossAxisSpacing: 20,
+              ),
+              padding: const EdgeInsets.all(8),
+              itemCount: lstVehicle.length,
+              itemBuilder: (context, index) {
+                return vehicleCard(index);
+              },
+            ),
+          )
+        ],
       ),
     );
   }
@@ -328,4 +365,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  Widget brandCard(brand) => SizedBox(
+        width: 60,
+        child: Image.network(
+          brand.image!,
+          fit: BoxFit.contain,
+        ),
+      );
 }

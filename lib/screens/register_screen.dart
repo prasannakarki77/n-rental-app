@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../components/customShape.dart';
 
@@ -23,6 +27,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
     phoneNoController.addListener(() => setState(() {}));
   }
 
+  Future<void> requestCameraPermission() async {
+    final cameraStatus = await Permission.camera.status;
+    if (cameraStatus.isDenied) {
+      await Permission.camera.request();
+    }
+  }
+
+  File? img;
+  Future _loadImage(ImageSource imageSource) async {
+    try {
+      final image = await ImagePicker().pickImage(source: imageSource);
+      if (image != null) {
+        setState(() {
+          img = File(image.path);
+        });
+      } else {
+        return;
+      }
+    } catch (e) {
+      debugPrint('Failed to pick Image $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,7 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Container(
               height: 250,
               width: MediaQuery.of(context).size.width,
-              color: Color.fromRGBO(255, 114, 94, 1),
+              color: const Color.fromRGBO(255, 114, 94, 1),
               child: Column(
                 children: [
                   const SizedBox(
@@ -52,9 +79,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(20),
           child: ListView(
             children: [
+              GestureDetector(
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: const Color.fromARGB(0, 62, 61, 61),
+                    child: ClipOval(
+                        child: img == null
+                            ? Image.network(
+                                "https://www.nicepng.com/png/detail/136-1366211_group-of-10-guys-login-user-icon-png.png",
+                                fit: BoxFit.cover)
+                            : Image.file(img!)),
+                  ),
+                  onTap: () {
+                    requestCameraPermission();
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return photoPopup();
+                        });
+                  }),
+              const SizedBox(
+                height: 30,
+              ),
               usernameField(),
               const SizedBox(
                 height: 30,
@@ -288,5 +337,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         obscureText: isPasswordVisible,
         onChanged: (value) => setState(() => password = value),
+      );
+
+  Widget photoPopup() => SizedBox(
+        height: 150,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 8),
+            SizedBox(
+              width: 350,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  _loadImage(ImageSource.camera);
+                },
+                icon: const Icon(Icons.camera_enhance),
+                label: const Text('Take Photo'),
+              ),
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: 350,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  _loadImage(ImageSource.gallery);
+                },
+                icon: const Icon(Icons.browse_gallery_sharp),
+                label: const Text('Choose Photo'),
+              ),
+            ),
+          ],
+        ),
       );
 }

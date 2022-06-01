@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:curved_navigation_bar/curved_navigation_bar.dart";
 import 'package:nrental/screens/home_screen.dart';
+import 'package:nrental/screens/search_screen.dart';
 import 'package:nrental/screens/testScreen.dart';
 
 import '../components/customShape.dart';
@@ -19,7 +20,7 @@ class _DashboardScreemState extends State<DashboardScreem> {
 
   final screens = const [
     HomeScreen(),
-    TestScreen(),
+    SearchScreen(),
     HomeScreen(),
     HomeScreen(),
     HomeScreen(),
@@ -172,7 +173,7 @@ class _DashboardScreemState extends State<DashboardScreem> {
             height: 60,
             backgroundColor: Colors.transparent,
             buttonBackgroundColor: const Color.fromRGBO(255, 114, 94, 1),
-            color: Color.fromARGB(255, 77, 67, 65),
+            color: const Color.fromARGB(255, 77, 67, 65),
             items: items,
             animationCurve: Curves.easeInOut,
             animationDuration: const Duration(milliseconds: 500),
