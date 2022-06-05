@@ -4,7 +4,7 @@ import 'package:nrental/screens/home_screen.dart';
 import 'package:nrental/screens/search_screen.dart';
 import 'package:nrental/screens/testScreen.dart';
 
-import '../components/customShape.dart';
+import '../components/custom_shape.dart';
 
 class DashboardScreem extends StatefulWidget {
   const DashboardScreem({Key? key}) : super(key: key);

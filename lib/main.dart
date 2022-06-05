@@ -7,6 +7,7 @@ import 'package:nrental/screens/testScreen.dart';
 import 'screens/register_screen.dart';
 import 'screens/splash_screen.dart';
 
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));

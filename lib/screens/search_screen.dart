@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nrental/components/categoryWidget.dart';
-import 'package:nrental/components/searchWidget.dart';
+import 'package:nrental/components/category_widget.dart';
+import 'package:nrental/components/search_widget.dart';
 import 'package:nrental/models/vehicle.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -132,34 +132,32 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          searchBox(),
-          const CategoryWidget(),
-          const SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            child: GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 30,
-                mainAxisExtent: 250,
-                crossAxisSpacing: 20,
-              ),
-              padding: const EdgeInsets.all(8),
-              itemCount: vehicles.length,
-              itemBuilder: (context, index) {
-                final vehicle = vehicles[index];
-                return vehicleCard(vehicle);
-              },
+    return Column(
+      children: [
+        searchBox(),
+        const CategoryWidget(),
+        const SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          child: GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 30,
+              mainAxisExtent: 250,
+              crossAxisSpacing: 20,
             ),
+            padding: const EdgeInsets.all(8),
+            itemCount: vehicles.length,
+            itemBuilder: (context, index) {
+              final vehicle = vehicles[index];
+              return vehicleCard(vehicle);
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
