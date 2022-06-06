@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:curved_navigation_bar/curved_navigation_bar.dart";
-import 'package:nrental/screens/home_screen.dart';
-import 'package:nrental/screens/search_screen.dart';
-import 'package:nrental/screens/testScreen.dart';
+import 'package:nrental/screen/home_screen.dart';
+import 'package:nrental/screen/search_screen.dart';
+import 'package:nrental/screen/testScreen.dart';
 
 import '../components/custom_shape.dart';
 

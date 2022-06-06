@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nrental/screens/dashboard_screen.dart';
-import 'package:nrental/screens/login_screen.dart';
-import 'package:nrental/screens/search_screen.dart';
-import 'package:nrental/screens/testScreen.dart';
-import 'screens/register_screen.dart';
-import 'screens/splash_screen.dart';
+import 'package:nrental/screen/dashboard_screen.dart';
+import 'package:nrental/screen/login_screen.dart';
+import 'package:nrental/screen/search_screen.dart';
+import 'package:nrental/screen/testScreen.dart';
+import 'screen/register_screen.dart';
+import 'screen/splash_screen.dart';
 
 
 void main() {

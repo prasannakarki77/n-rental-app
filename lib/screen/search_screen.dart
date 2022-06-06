@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nrental/components/category_widget.dart';
 import 'package:nrental/components/search_widget.dart';
-import 'package:nrental/models/vehicle.dart';
+import 'package:nrental/model/vehicle.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);

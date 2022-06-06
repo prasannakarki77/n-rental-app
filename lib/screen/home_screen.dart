@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nrental/models/brand.dart';
+import 'package:nrental/model/brand.dart';
 
-import '../models/vehicle.dart';
+import '../model/vehicle.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
