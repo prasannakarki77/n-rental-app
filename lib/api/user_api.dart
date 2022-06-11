@@ -37,7 +37,12 @@ class UserApi {
       if (response.statusCode == 200) {
         LoginResponse loginResponse = LoginResponse.fromJson(response.data);
         token = loginResponse.token;
-        isLogin = true;
+
+        if (token == null) {
+          isLogin = false;
+        } else {
+          isLogin = true;
+        }
       }
     } catch (e) {
       debugPrint(e.toString());

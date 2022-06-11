@@ -127,7 +127,6 @@ class _LoginScreemState extends State<LoginScreen> {
                       if (_formKey.currentState!.validate()) {
                         _loginUser();
                       }
-                      Navigator.pushNamed(context, '/dashboardScreen');
                     },
                   ),
                 ),
