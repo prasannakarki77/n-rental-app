@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nrental/components/category_widget.dart';
-import 'package:nrental/components/search_widget.dart';
 import 'package:nrental/model/vehicle.dart';
+import 'package:nrental/repository/vehicle_repository.dart';
+import 'package:nrental/response/vehicle_response.dart';
+
+import '../components/search_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -12,13 +15,6 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   String query = '';
-  late List<Vehicle> vehicles;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    vehicles = allVehicles;
-  }
 
   Color bgColorCar = const Color.fromRGBO(243, 243, 243, 1);
   Color bgColorBike = const Color.fromRGBO(243, 243, 243, 1);
@@ -28,68 +24,6 @@ class _SearchScreenState extends State<SearchScreen> {
   String bikeIcon = "bike-red.png";
   String busIcon = "bus-red.png";
   String vanIcon = "van-red.png";
-
-  final allVehicles = <Vehicle>[
-    Vehicle(
-      name: "Yamaha r1",
-      image:
-          "https://i.pinimg.com/originals/64/a5/92/64a5923a87f1a724a0b2f5ea1535dcab.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Tesla Model S",
-      image: "https://www.picng.com/upload/tesla_car/png_tesla_car_23349.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Toyota Hiace",
-      image:
-          "https://www.seekpng.com/png/full/430-4304003_hiace-super-long-wheelbase-commuter-bus-french-vanilla.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "CBR sport",
-      image:
-          "https://www.freepnglogos.com/uploads/bike-png/honda-cbr-sport-bike-png-image-pngpix-22.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Tour Bus",
-      image: "https://www.freeiconspng.com/thumbs/bus-png/bus-png-4.png",
-      cost: "9000",
-    )
-  ];
-
-  List<Vehicle> lstVehicle = [
-    Vehicle(
-      name: "Yamaha r1",
-      image:
-          "https://i.pinimg.com/originals/64/a5/92/64a5923a87f1a724a0b2f5ea1535dcab.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Tesla Model S",
-      image: "https://www.picng.com/upload/tesla_car/png_tesla_car_23349.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Toyota Hiace",
-      image:
-          "https://www.seekpng.com/png/full/430-4304003_hiace-super-long-wheelbase-commuter-bus-french-vanilla.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "CBR sport",
-      image:
-          "https://www.freepnglogos.com/uploads/bike-png/honda-cbr-sport-bike-png-image-pngpix-22.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Tour Bus",
-      image: "https://www.freeiconspng.com/thumbs/bus-png/bus-png-4.png",
-      cost: "9000",
-    )
-  ];
 
   _iconClicked(String vehicle) {
     if (vehicle == "car") {
@@ -134,26 +68,51 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        searchBox(),
+        // searchBox(),
         const CategoryWidget(),
         const SizedBox(
           height: 20,
         ),
         Expanded(
-          child: GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 30,
-              mainAxisExtent: 250,
-              crossAxisSpacing: 20,
-            ),
-            padding: const EdgeInsets.all(8),
-            itemCount: vehicles.length,
-            itemBuilder: (context, index) {
-              final vehicle = vehicles[index];
-              return vehicleCard(vehicle);
+          child: FutureBuilder<VehicleResponse?>(
+            future: VehicleRepository().getVehicles(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  List<Vehicle> lstVehicles = snapshot.data!.data!;
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 30,
+                      mainAxisExtent: 250,
+                      crossAxisSpacing: 20,
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    itemCount: lstVehicles.length,
+                    itemBuilder: (context, index) {
+                      final vehicle = lstVehicles[index];
+                      return vehicleCard(vehicle);
+                    },
+                  );
+                } else {
+                  return const Center(
+                    child: Text("No Data"),
+                  );
+                }
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  ),
+                );
+              }
             },
           ),
         ),
@@ -216,7 +175,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             Image.network(
-              "${vehicle.image}",
+              "https://nepalvehiclebooking.com/wp-content/uploads/2020/02/SONATA-hero-option1-764A5360-edit-640x354.jpg",
               height: 90,
               fit: BoxFit.contain,
             ),
@@ -224,7 +183,7 @@ class _SearchScreenState extends State<SearchScreen> {
               height: 10,
             ),
             Text(
-              "${vehicle.name}",
+              vehicle.vehicle_name,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -234,7 +193,7 @@ class _SearchScreenState extends State<SearchScreen> {
               height: 5,
             ),
             Text(
-              "Rs ${vehicle.cost}/day",
+              "Rs ${vehicle.booking_cost}/day",
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w800,
@@ -278,15 +237,15 @@ class _SearchScreenState extends State<SearchScreen> {
         onChanged: searchVehicle,
       );
   void searchVehicle(String query) {
-    final vehicles = allVehicles.where((vehicle) {
-      final vehicleName = vehicle.name?.toLowerCase();
-      final searchText = query.toLowerCase();
-      return vehicleName!.contains(searchText);
-    }).toList();
+    // final vehicles = lstVehicles.where((vehicle) {
+    //   final vehicleName = vehicle.vehicle_name?.toLowerCase();
+    //   final searchText = query.toLowerCase();
+    //   return vehicleName!.contains(searchText);
+    // }).toList();
 
-    setState(() {
-      this.query = query;
-      this.vehicles = vehicles;
-    });
+    // setState(() {
+    //   this.query = query;
+    //   allVehicles = vehicles;
+    // });
   }
 }

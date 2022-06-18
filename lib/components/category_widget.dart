@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/vehicle.dart';
+import '../model/vehicle2.dart';
 
 class CategoryWidget extends StatefulWidget {
   const CategoryWidget({Key? key}) : super(key: key);
