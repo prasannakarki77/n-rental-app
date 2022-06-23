@@ -146,10 +146,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Image.network(
                       "https://www.picng.com/upload/tesla_car/png_tesla_car_23349.png",
-                      height: 130,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.5,
                     ),
                     Column(
                       children: [

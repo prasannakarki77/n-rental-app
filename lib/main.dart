@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nrental/screen/about_screen.dart';
@@ -10,6 +11,21 @@ import 'screen/register_screen.dart';
 import 'screen/splash_screen.dart';
 
 void main() {
+  AwesomeNotifications().initialize(
+    'resource://drawable/launcher',
+    [
+      NotificationChannel(
+        channelGroupKey: 'basic_channel_group',
+        channelKey: 'basic_channel',
+        channelName: 'Basic notification',
+        channelDescription: "Notification channel for basic text",
+        defaultColor: Colors.red,
+        importance: NotificationImportance.Max,
+        ledColor: Colors.red,
+        channelShowBadge: true,
+      ),
+    ],
+  );
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   runApp(

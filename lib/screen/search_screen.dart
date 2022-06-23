@@ -3,6 +3,7 @@ import 'package:nrental/components/category_widget.dart';
 import 'package:nrental/model/vehicle.dart';
 import 'package:nrental/repository/vehicle_repository.dart';
 import 'package:nrental/response/vehicle_response.dart';
+import 'package:nrental/utils/url.dart';
 
 import '../components/search_widget.dart';
 
@@ -180,7 +181,7 @@ class _SearchScreenState extends State<SearchScreen> {
             //   fit: BoxFit.contain,
             // ),
             Image.network(
-              'http://10.0.2.2:90/${vehicle.vehicle_image}',
+              '$baseUrl${vehicle.vehicle_image}',
               height: 90,
               fit: BoxFit.contain,
             ),
