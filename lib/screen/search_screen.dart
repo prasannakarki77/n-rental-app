@@ -229,7 +229,10 @@ class _SearchScreenState extends State<SearchScreen> {
                     borderRadius: BorderRadius.circular(10), // <-- Radius
                   ),
                 ),
-                onPressed: () => {},
+                onPressed: () => {
+                  Navigator.pushNamed(context, '/vehicleScreen',
+                      arguments: vehicle)
+                },
                 child: const Text(
                   "Book",
                   style: TextStyle(

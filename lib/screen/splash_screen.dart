@@ -13,13 +13,15 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String? data;
+  bool? isLoggedIn;
   @override
   void initState() {
+    _getDataFromSharedPref();
     super.initState();
     Timer(
         const Duration(seconds: 2),
         () => {
-              if (data == "")
+              if (isLoggedIn == false)
                 {
                   Navigator.pushReplacement(
                       context,
@@ -39,13 +41,14 @@ class _SplashScreenState extends State<SplashScreen> {
   _getDataFromSharedPref() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? value = prefs.getString("token");
-    if (value != null) {
+    if (prefs.containsKey('token')) {
       setState(() {
         data = value;
+        isLoggedIn = true;
       });
     } else {
       setState(() {
-        data = "";
+        isLoggedIn = false;
       });
     }
   }

@@ -5,6 +5,7 @@ import 'package:nrental/screen/dashboard_screen.dart';
 import 'package:nrental/screen/login_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
 import 'package:nrental/screen/testScreen.dart';
+import 'package:nrental/screen/vehicle_screen.dart';
 import 'screen/register_screen.dart';
 import 'screen/splash_screen.dart';
 
@@ -14,8 +15,10 @@ void main() {
   runApp(
     MaterialApp(
       theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 234, 98, 7),
-          primarySwatch: Colors.red),
+        primaryColor: const Color.fromARGB(255, 234, 98, 7),
+        primarySwatch: Colors.red,
+        fontFamily: 'Poppins',
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
@@ -26,6 +29,7 @@ void main() {
         '/testScreen': (context) => const TestScreen(),
         '/searchScreen': (context) => const SearchScreen(),
         '/aboutScreen': (context) => const AboutScreen(),
+        '/vehicleScreen': (context) => const VehicleScreen(),
       },
     ),
   );

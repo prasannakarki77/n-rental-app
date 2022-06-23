@@ -204,12 +204,13 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: SizedBox(
+              width: MediaQuery.of(context).size.width,
               height: 50,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: lstBrand.length,
-                separatorBuilder: (context, _) => const SizedBox(
-                  width: 40,
+                separatorBuilder: (context, _) => SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.2,
                 ),
                 itemBuilder: (context, index) => brandCard(lstBrand[index]),
               ),

@@ -25,18 +25,20 @@ class _DashboardScreemState extends State<DashboardScreem> {
     HomeScreen(),
     HomeScreen(),
   ];
-  _setDataToSharedPref(String token) async {
+  _removeDataFromSharedPref() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString("token", token);
+      prefs.remove("token");
     } catch (e) {
       debugPrint(e.toString());
     }
   }
 
   _logoutUser() {
-    _setDataToSharedPref('');
-    Navigator.pushNamed(context, '/');
+    setState(() {
+      _removeDataFromSharedPref();
+      Navigator.pushNamed(context, '/');
+    });
   }
 
   @override
