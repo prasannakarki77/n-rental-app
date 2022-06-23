@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import "package:curved_navigation_bar/curved_navigation_bar.dart";
 import 'package:nrental/screen/home_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
-import 'package:nrental/screen/testScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/custom_shape.dart';
 
@@ -25,6 +25,19 @@ class _DashboardScreemState extends State<DashboardScreem> {
     HomeScreen(),
     HomeScreen(),
   ];
+  _setDataToSharedPref(String token) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString("token", token);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  _logoutUser() {
+    _setDataToSharedPref('');
+    Navigator.pushNamed(context, '/');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +125,13 @@ class _DashboardScreemState extends State<DashboardScreem> {
                           index = 4;
                         }),
                       ),
+                      buildMenuItem(
+                        text: "About",
+                        icon: Icons.info_outline,
+                        onClicked: () => setState(() {
+                          Navigator.pushNamed(context, '/aboutScreen');
+                        }),
+                      ),
                       const Divider(
                         color: Colors.white70,
                       ),
@@ -120,13 +140,13 @@ class _DashboardScreemState extends State<DashboardScreem> {
                         icon: Icons.settings,
                         onClicked: () => setState(() {
                           Navigator.of(context).pop();
-                          index = 5;
+                          index = 6;
                         }),
                       ),
                       buildMenuItem(
                         text: "Logout",
                         icon: Icons.logout_outlined,
-                        // onClicked: () => selectedItem(context, 6),
+                        onClicked: () => _logoutUser(),
                       ),
                     ],
                   ),

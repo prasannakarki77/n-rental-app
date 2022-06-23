@@ -36,6 +36,8 @@ dependencies:
   motion_toast: ^2.1.6
   flutter_svg: ^1.0.3
   mime: ^1.0.2
+  google_maps_flutter: ^2.1.8
+  shared_preferences: ^2.0.15
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
 

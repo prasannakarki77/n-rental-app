@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nrental/screen/about_screen.dart';
 import 'package:nrental/screen/dashboard_screen.dart';
 import 'package:nrental/screen/login_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
@@ -7,7 +8,6 @@ import 'package:nrental/screen/testScreen.dart';
 import 'screen/register_screen.dart';
 import 'screen/splash_screen.dart';
 
- 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -25,6 +25,7 @@ void main() {
         '/dashboardScreen': (context) => const DashboardScreem(),
         '/testScreen': (context) => const TestScreen(),
         '/searchScreen': (context) => const SearchScreen(),
+        '/aboutScreen': (context) => const AboutScreen(),
       },
     ),
   );

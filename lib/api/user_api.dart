@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:nrental/api/http_services.dart';
 import 'package:nrental/response/login_response.dart';
 import 'package:nrental/utils/url.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/user.dart';
 
@@ -37,6 +38,7 @@ class UserApi {
       if (response.statusCode == 200) {
         LoginResponse loginResponse = LoginResponse.fromJson(response.data);
         token = loginResponse.token;
+        _setDataToSharedPref(token!);
 
         if (token == null) {
           isLogin = false;
@@ -48,5 +50,14 @@ class UserApi {
       debugPrint(e.toString());
     }
     return isLogin;
+  }
+}
+
+_setDataToSharedPref(String token) async {
+  try {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("token", token);
+  } catch (e) {
+    debugPrint(e.toString());
   }
 }

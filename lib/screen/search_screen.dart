@@ -87,7 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 30,
-                      mainAxisExtent: 250,
+                      mainAxisExtent: 260,
                       crossAxisSpacing: 20,
                     ),
                     padding: const EdgeInsets.all(8),
@@ -174,11 +174,28 @@ class _SearchScreenState extends State<SearchScreen> {
                 color: Colors.grey,
               ),
             ),
+            // Image.network(
+            //   "https://nepalvehiclebooking.com/wp-content/uploads/2020/02/SONATA-hero-option1-764A5360-edit-640x354.jpg",
+            //   height: 90,
+            //   fit: BoxFit.contain,
+            // ),
             Image.network(
-              "https://nepalvehiclebooking.com/wp-content/uploads/2020/02/SONATA-hero-option1-764A5360-edit-640x354.jpg",
+              'http://10.0.2.2:90/${vehicle.vehicle_image}',
               height: 90,
               fit: BoxFit.contain,
             ),
+            //  baseUrl.contains('10.0.2.2')
+            //               ? CircleAvatar(
+            //                   backgroundImage: NetworkImage(
+            //                     lstProductCategory[index]
+            //                         .image!
+            //                         .replaceAll('localhost', '10.0.2.2'),
+            //                   ),
+            //                 )
+            //               : CircleAvatar(
+            //                   backgroundImage: NetworkImage(
+            //                       lstProductCategory[index].image!),
+            //                 ),
             const SizedBox(
               height: 10,
             ),

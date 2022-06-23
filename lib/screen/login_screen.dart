@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:nrental/utils/show_message.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../components/custom_shape.dart';
 import '../repository/user_repository.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -59,6 +61,27 @@ class _LoginScreemState extends State<LoginScreen> {
       displayErrorMessage(context, "Login Failed");
     }
   }
+  _setDataToSharedPref(String text) async{
+    try{
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString("my_key",text);
+    } catch(e){
+      debugPrint(e.toString());
+    }
+  }
+  // _getDataFromSharedPref() async{
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final String? value =  prefs.getString("my_key");
+  //   if(value!=null){
+  //     setState(() {
+  //       data = value;
+  //     });
+  //   } else{
+  //     setState(() {
+  //       data = "No Data found";
+  //     });
+  //   }
+  // }
 
 //werwerdsfsdfsdf
   @override
