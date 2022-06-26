@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wear/wear.dart';
 
 import '../repository/user_repository.dart';
@@ -51,15 +50,6 @@ class _WearOSLoginScreenState extends State<WearOSLoginScreen> {
           backgroundColor: Colors.transparent,
           textColor: Colors.black,
         );
-      }
-    }
-
-    _setDataToSharedPref(String text) async {
-      try {
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString("my_key", text);
-      } catch (e) {
-        debugPrint(e.toString());
       }
     }
 

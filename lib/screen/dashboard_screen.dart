@@ -128,6 +128,13 @@ class _DashboardScreemState extends State<DashboardScreem> {
                         }),
                       ),
                       buildMenuItem(
+                        text: "Articles",
+                        icon: Icons.article,
+                        onClicked: () => setState(() {
+                          Navigator.pushNamed(context, '/articleScreen');
+                        }),
+                      ),
+                      buildMenuItem(
                         text: "About",
                         icon: Icons.info_outline,
                         onClicked: () => setState(() {
