@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nrental/model/brand.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 import '../model/vehicle2.dart';
 
@@ -111,6 +112,38 @@ class _HomeScreenState extends State<HomeScreen> {
           "https://www.freepnglogos.com/uploads/toyota-logo-png/toyota-logos-brands-logotypes-0.png",
     ),
   ];
+
+  int counter = 1;
+  _checkNotificationEnabled() {
+    AwesomeNotifications().isNotificationAllowed().then(
+      (isaAllowed) {
+        if (!isaAllowed) {
+          AwesomeNotifications().requestPermissionToSendNotifications();
+        }
+      },
+    );
+  }
+
+  _showNotification() {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: counter,
+        channelKey: 'basic_channel',
+        title: "Car Booked",
+        body: 'You have successfully booked a tesla',
+      ),
+    );
+    setState(() {
+      counter++;
+    });
+  }
+
+  @override
+  void initState() {
+    _checkNotificationEnabled();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -350,7 +383,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(10), // <-- Radius
                   ),
                 ),
-                onPressed: () => {},
+                onPressed: () => {_showNotification()},
                 child: const Text(
                   "Book",
                   style: TextStyle(
