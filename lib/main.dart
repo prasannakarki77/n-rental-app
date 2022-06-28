@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nrental/screen/about_screen.dart';
+import 'package:nrental/screen/article_details_screen.dart';
 import 'package:nrental/screen/article_screen.dart';
 import 'package:nrental/screen/dashboard_screen.dart';
 import 'package:nrental/screen/login_screen.dart';
@@ -51,6 +52,7 @@ void main() {
         '/aboutScreen': (context) => const AboutScreen(),
         '/vehicleScreen': (context) => const VehicleScreen(),
         '/articleScreen': (context) => const ArticleScreen(),
+        '/articleDetailsScreen': (context) => const ArticleDetailsScreen(),
       },
     ),
   );
