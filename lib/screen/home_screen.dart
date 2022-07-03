@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nrental/model/article.dart';
 import 'package:nrental/model/brand.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:nrental/repository/article_respository.dart';
 import 'package:nrental/repository/vehicle_repository.dart';
+import 'package:nrental/response/article_response.dart';
 import 'package:nrental/response/vehicle_response.dart';
 import 'package:nrental/utils/url.dart';
 
@@ -272,55 +275,131 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: FutureBuilder<VehicleResponse?>(
-              future: VehicleRepository().getVehicles(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData) {
-                    List<Vehicle> lstVehicles = snapshot.data!.data!;
-                    return GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 30,
-                        mainAxisExtent: 260,
-                        crossAxisSpacing: 20,
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      itemCount: lstVehicles.length,
-                      itemBuilder: (context, index) {
-                        final vehicle = lstVehicles[index];
-                        print(vehicle.is_featured);
-                        if (vehicle.is_featured == true) {
-                          return vehicleCard(vehicle);
-                        } else {
-                          return const Text("No Data");
-                        }
-                      },
-                    );
-                  } else {
-                    return const Center(
-                      child: Text("No Data"),
-                    );
-                  }
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+          FutureBuilder<VehicleResponse?>(
+            future: VehicleRepository().getVehicles(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  List<Vehicle> lstVehicles = snapshot.data!.data!;
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 30,
+                      mainAxisExtent: 260,
+                      crossAxisSpacing: 20,
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    itemCount: lstVehicles.length,
+                    itemBuilder: (context, index) {
+                      final vehicle = lstVehicles[index];
+                      print(vehicle.is_featured);
+                      if (vehicle.is_featured == true) {
+                        return vehicleCard(vehicle);
+                      } else {
+                        return const Text("No Data");
+                      }
+                    },
                   );
                 } else {
                   return const Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                    ),
+                    child: Text("No Data"),
                   );
                 }
-              },
-            ),
-          )
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  ),
+                );
+              }
+            },
+          ),
+          Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Divider(
+                    color: Color.fromARGB(179, 123, 120, 120),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.my_library_books,
+                          size: 30,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "Articles",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w900),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  FutureBuilder<ArticleResponse?>(
+                    future: ArticleRepository().getArticles(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          List<Article> lstArticles = snapshot.data!.data!;
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data!.data!.length,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                final article = lstArticles[index];
+                                if (article.is_featured == true) {
+                                  return articleCard(article);
+                                } else {
+                                  return const Center(
+                                    child: Text("No data"),
+                                  );
+                                }
+                              });
+                        } else {
+                          return const Center(
+                            child: Text("No data"),
+                          );
+                        }
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}");
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.blue),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              )),
         ],
       ),
     );
@@ -464,4 +543,114 @@ class _HomeScreenState extends State<HomeScreen> {
           fit: BoxFit.contain,
         ),
       );
+  Widget articleCard(article) {
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.25),
+            spreadRadius: 0,
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: Image.network(
+              '$baseUrl${article.image}',
+              height: 190,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "${article.date}",
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "${article.title}",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Divider(
+                  color: Color.fromARGB(179, 126, 122, 122),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "${article.description}",
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: Color.fromARGB(255, 126, 125, 125),
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color.fromRGBO(255, 114, 94, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10), // <-- Radius
+                        ),
+                      ),
+                      child: const Text(
+                        "Read more",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      onPressed: () => {
+                        Navigator.pushNamed(context, '/articleDetailsScreen',
+                            arguments: article)
+                      },
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }

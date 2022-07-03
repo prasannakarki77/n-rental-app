@@ -65,6 +65,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   Widget articleCard(article) {
     return Container(
+      clipBehavior: Clip.antiAlias,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -80,10 +81,13 @@ class _ArticleScreenState extends State<ArticleScreen> {
       ),
       child: Column(
         children: [
-          Image.network(
-            '$baseUrl${article.image}',
-            height: 200,
-            fit: BoxFit.contain,
+          SizedBox(
+            width: double.infinity,
+            child: Image.network(
+              '$baseUrl${article.image}',
+              height: 200,
+              fit: BoxFit.cover,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(15),
