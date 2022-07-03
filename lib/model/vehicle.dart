@@ -13,6 +13,8 @@ class Vehicle {
   String? booking_cost;
   String? vehicle_sku;
   String? vehicle_category;
+  bool? is_featured;
+  String? vehicle_rich_desc;
 
   Vehicle(
       {this.vehicle_name,
@@ -21,7 +23,9 @@ class Vehicle {
       this.vehicle_desc,
       this.booking_cost,
       this.vehicle_sku,
-      this.vehicle_category});
+      this.vehicle_category,
+      this.is_featured,
+      this.vehicle_rich_desc});
 
   //1. flutter clean
   //2. flutter pub get

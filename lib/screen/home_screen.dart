@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nrental/model/brand.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:nrental/repository/vehicle_repository.dart';
+import 'package:nrental/response/vehicle_response.dart';
+import 'package:nrental/utils/url.dart';
 
-import '../model/vehicle2.dart';
+import '../model/vehicle.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -60,36 +63,36 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  List<Vehicle> lstVehicle = [
-    Vehicle(
-      name: "Yamaha r1",
-      image:
-          "https://i.pinimg.com/originals/64/a5/92/64a5923a87f1a724a0b2f5ea1535dcab.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Tesla Model S",
-      image: "https://www.picng.com/upload/tesla_car/png_tesla_car_23349.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Toyota Hiace",
-      image:
-          "https://www.seekpng.com/png/full/430-4304003_hiace-super-long-wheelbase-commuter-bus-french-vanilla.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "CBR sport",
-      image:
-          "https://www.freepnglogos.com/uploads/bike-png/honda-cbr-sport-bike-png-image-pngpix-22.png",
-      cost: "9000",
-    ),
-    Vehicle(
-      name: "Tour Bus",
-      image: "https://www.freeiconspng.com/thumbs/bus-png/bus-png-4.png",
-      cost: "9000",
-    )
-  ];
+  // List<Vehicle> lstVehicle = [
+  //   Vehicle(
+  //     name: "Yamaha r1",
+  //     image:
+  //         "https://i.pinimg.com/originals/64/a5/92/64a5923a87f1a724a0b2f5ea1535dcab.png",
+  //     cost: "9000",
+  //   ),
+  //   Vehicle(
+  //     name: "Tesla Model S",
+  //     image: "https://www.picng.com/upload/tesla_car/png_tesla_car_23349.png",
+  //     cost: "9000",
+  //   ),
+  //   Vehicle(
+  //     name: "Toyota Hiace",
+  //     image:
+  //         "https://www.seekpng.com/png/full/430-4304003_hiace-super-long-wheelbase-commuter-bus-french-vanilla.png",
+  //     cost: "9000",
+  //   ),
+  //   Vehicle(
+  //     name: "CBR sport",
+  //     image:
+  //         "https://www.freepnglogos.com/uploads/bike-png/honda-cbr-sport-bike-png-image-pngpix-22.png",
+  //     cost: "9000",
+  //   ),
+  //   Vehicle(
+  //     name: "Tour Bus",
+  //     image: "https://www.freeiconspng.com/thumbs/bus-png/bus-png-4.png",
+  //     cost: "9000",
+  //   )
+  // ];
 
   List<Brand> lstBrand = [
     Brand(
@@ -270,19 +273,51 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SingleChildScrollView(
-            child: GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 30,
-                mainAxisExtent: 260,
-                crossAxisSpacing: 20,
-              ),
-              padding: const EdgeInsets.all(8),
-              itemCount: lstVehicle.length,
-              itemBuilder: (context, index) {
-                return vehicleCard(index);
+            child: FutureBuilder<VehicleResponse?>(
+              future: VehicleRepository().getVehicles(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    List<Vehicle> lstVehicles = snapshot.data!.data!;
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 30,
+                        mainAxisExtent: 260,
+                        crossAxisSpacing: 20,
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      itemCount: lstVehicles.length,
+                      itemBuilder: (context, index) {
+                        final vehicle = lstVehicles[index];
+                        print(vehicle.is_featured);
+                        if (vehicle.is_featured == true) {
+                          return vehicleCard(vehicle);
+                        } else {
+                          return const Text("No Data");
+                        }
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: Text("No Data"),
+                    );
+                  }
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    ),
+                  );
+                }
               },
             ),
           )
@@ -320,7 +355,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget vehicleCard(index) {
+  Widget vehicleCard(vehicle) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -345,16 +380,33 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.grey,
               ),
             ),
+            // Image.network(
+            //   "https://nepalvehiclebooking.com/wp-content/uploads/2020/02/SONATA-hero-option1-764A5360-edit-640x354.jpg",
+            //   height: 90,
+            //   fit: BoxFit.contain,
+            // ),
             Image.network(
-              "${lstVehicle[index].image}",
+              '$baseUrl${vehicle.vehicle_image}',
               height: 90,
               fit: BoxFit.contain,
             ),
+            //  baseUrl.contains('10.0.2.2')
+            //               ? CircleAvatar(
+            //                   backgroundImage: NetworkImage(
+            //                     lstProductCategory[index]
+            //                         .image!
+            //                         .replaceAll('localhost', '10.0.2.2'),
+            //                   ),
+            //                 )
+            //               : CircleAvatar(
+            //                   backgroundImage: NetworkImage(
+            //                       lstProductCategory[index].image!),
+            //                 ),
             const SizedBox(
               height: 10,
             ),
             Text(
-              "${lstVehicle[index].name}",
+              vehicle.vehicle_name,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -364,7 +416,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 5,
             ),
             Text(
-              "Rs ${lstVehicle[index].cost}/day",
+              "Rs ${vehicle.booking_cost}/day",
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w800,
@@ -383,7 +435,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(10), // <-- Radius
                   ),
                 ),
-                onPressed: () => {_showNotification()},
+                onPressed: () => {
+                  Navigator.pushNamed(context, '/vehicleScreen',
+                      arguments: vehicle)
+                },
                 child: const Text(
                   "Book",
                   style: TextStyle(
