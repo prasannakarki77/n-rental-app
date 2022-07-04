@@ -4,7 +4,6 @@ import 'package:nrental/repository/user_repository.dart';
 
 void main() {
   late UserRepository? userRepository;
-  
 
   setUp(() {
     userRepository = UserRepository();
@@ -15,8 +14,8 @@ void main() {
       bool expectedResult = true;
       User user = User(
         email: "prk.karki@gmail.com",
-        username: "admin",
-        password: "admin",
+        username: "admin11",
+        password: "admin11",
         phone: "234234324",
       );
       bool actualResult = await UserRepository().registerUser(user);
@@ -24,8 +23,8 @@ void main() {
     });
     test("user login", () async {
       bool expectedResult = true;
-      String username = "admin";
-      String password = "admin";
+      String username = "admin11";
+      String password = "admin11";
       bool actualResult = await UserRepository().loginUser(username, password);
       expect(expectedResult, actualResult);
     });

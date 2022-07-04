@@ -61,8 +61,8 @@ _setDataToSharedPref(String token) async {
     debugPrint(e.toString());
   }
 }
+
 _getDataFromSharedPref() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString("token");
 }
-

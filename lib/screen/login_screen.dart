@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../components/custom_shape.dart';
 import '../repository/user_repository.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -15,8 +14,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreemState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _usernameController = TextEditingController(text: 'admin');
+  final _passwordController = TextEditingController(text: 'admin');
 
   bool isPasswordVisible = true;
   @override
@@ -61,11 +60,12 @@ class _LoginScreemState extends State<LoginScreen> {
       displayErrorMessage(context, "Login Failed");
     }
   }
-  _setDataToSharedPref(String text) async{
-    try{
+
+  _setDataToSharedPref(String text) async {
+    try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString("my_key",text);
-    } catch(e){
+      await prefs.setString("my_key", text);
+    } catch (e) {
       debugPrint(e.toString());
     }
   }
