@@ -6,6 +6,7 @@ import 'package:nrental/screen/article_details_screen.dart';
 import 'package:nrental/screen/article_screen.dart';
 import 'package:nrental/screen/dashboard_screen.dart';
 import 'package:nrental/screen/login_screen.dart';
+import 'package:nrental/screen/profile_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
 import 'package:nrental/screen/splash_screen.dart';
 import 'package:nrental/screen/testScreen.dart';
@@ -52,6 +53,7 @@ void main() {
         '/aboutScreen': (context) => const AboutScreen(),
         '/vehicleScreen': (context) => const VehicleScreen(),
         '/articleScreen': (context) => const ArticleScreen(),
+        '/profileScreen': (context) => const ProfileScreen(),
         '/articleDetailsScreen': (context) => const ArticleDetailsScreen(),
       },
     ),

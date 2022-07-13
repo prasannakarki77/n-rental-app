@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import "package:curved_navigation_bar/curved_navigation_bar.dart";
+import 'package:nrental/model/user.dart';
+import 'package:nrental/repository/user_repository.dart';
+import 'package:nrental/response/user_response.dart';
 import 'package:nrental/screen/home_screen.dart';
+import 'package:nrental/screen/profile_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/custom_shape.dart';
+import '../utils/url.dart';
 
 class DashboardScreem extends StatefulWidget {
   const DashboardScreem({Key? key}) : super(key: key);
@@ -19,7 +24,7 @@ class _DashboardScreemState extends State<DashboardScreem> {
   int index = 2;
 
   final screens = const [
-    HomeScreen(),
+    ProfileScreen(),
     SearchScreen(),
     HomeScreen(),
     HomeScreen(),
@@ -43,11 +48,6 @@ class _DashboardScreemState extends State<DashboardScreem> {
 
   @override
   Widget build(BuildContext context) {
-    const username = "Prasanna Karki";
-    const email = "pkarki44@gmail.com";
-    const profileImg =
-        "https://i.pinimg.com/564x/4a/83/2c/4a832c89d14710986b9c85a3fed4e526--detective-avatar.jpg";
-
     final items = <Widget>[
       const Icon(
         Icons.person,
@@ -78,11 +78,26 @@ class _DashboardScreemState extends State<DashboardScreem> {
             color: const Color.fromARGB(255, 77, 67, 65),
             child: ListView(
               children: [
-                buildHeader(
-                  profileImg: profileImg,
-                  username: username,
-                  email: email,
-                ),
+                FutureBuilder<UserResponse?>(
+                    future: UserRepository().getUserData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          User userData = snapshot.data!.data!;
+                          print(userData);
+                          return (userInfo(userData));
+                        } else {
+                          return const Text("No data");
+                        }
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.blue),
+                          ),
+                        );
+                      }
+                    }),
                 Container(
                   padding: padding,
                   child: Column(
@@ -217,27 +232,25 @@ class _DashboardScreemState extends State<DashboardScreem> {
     );
   }
 
-  Widget buildHeader({
-    required String profileImg,
-    required String username,
-    required String email,
-  }) =>
-      Container(
+  Widget userInfo(userData) => Container(
         padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
         child: Row(
           children: [
             CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage(profileImg),
+              radius: 25,
+              backgroundImage: userData.profile_img != null
+                  ? NetworkImage('$baseUrl${userData.profile_img}')
+                  : const NetworkImage(
+                      'https://icg.webspace.durham.ac.uk/wp-content/uploads/sites/142/2021/04/4x5-Avatar.jpg'),
             ),
             const SizedBox(
-              width: 20,
+              width: 10,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  username,
+                  "${userData.username}",
                   style: const TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -247,7 +260,7 @@ class _DashboardScreemState extends State<DashboardScreem> {
                   height: 4,
                 ),
                 Text(
-                  email,
+                  "${userData.email}",
                   style: const TextStyle(
                     fontSize: 14,
                     color: Colors.white,
