@@ -13,6 +13,12 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _genderController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -266,7 +272,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.circular(10), // <-- Radius
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              _setTextFieldValues(userData);
+              _updateForm(context, userData);
+            },
             icon: const Icon(Icons.edit_note),
             label: const Text(
               'Update Profile',
@@ -301,7 +310,337 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ),
+        const SizedBox(
+          height: 30,
+        ),
       ],
     );
   }
+
+  _setTextFieldValues(userData) {
+    _firstnameController.text = userData.firstname ?? "";
+    _lastnameController.text = userData.lastname ?? "";
+    _emailController.text = userData.email ?? "";
+    _phoneController.text = userData.phone ?? "";
+    _addressController.text = userData.address ?? "";
+    _genderController.text = userData.gender ?? "";
+  }
+
+  void _updateForm(context, userData) => showModalBottomSheet<void>(
+        backgroundColor: Colors.transparent,
+        context: context,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.75,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 243, 241, 241),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0)),
+            ),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.15),
+                            spreadRadius: 0,
+                            blurRadius: 5,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: TextFormField(
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 145, 142, 142)),
+                          controller: _firstnameController,
+                          decoration: const InputDecoration(
+                            fillColor: Color.fromARGB(255, 116, 114, 114),
+                            border: InputBorder.none,
+                            hintText: "Firstname",
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 145, 142, 142),
+                            ),
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Icon(Icons.person),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.15),
+                            spreadRadius: 0,
+                            blurRadius: 5,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: TextFormField(
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 145, 142, 142)),
+                          controller: _lastnameController,
+                          decoration: const InputDecoration(
+                            fillColor: Color.fromARGB(255, 116, 114, 114),
+                            border: InputBorder.none,
+                            hintText: "Lastname",
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 145, 142, 142),
+                            ),
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Icon(Icons.person),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.15),
+                            spreadRadius: 0,
+                            blurRadius: 5,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: TextFormField(
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 145, 142, 142)),
+                          controller: _emailController,
+                          decoration: const InputDecoration(
+                            fillColor: Color.fromARGB(255, 116, 114, 114),
+                            border: InputBorder.none,
+                            hintText: "Email address",
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 145, 142, 142),
+                            ),
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Icon(Icons.mail),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.15),
+                            spreadRadius: 0,
+                            blurRadius: 5,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: TextFormField(
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 145, 142, 142)),
+                          controller: _phoneController,
+                          decoration: const InputDecoration(
+                            fillColor: Color.fromARGB(255, 116, 114, 114),
+                            border: InputBorder.none,
+                            hintText: "Phone number",
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 145, 142, 142),
+                            ),
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Icon(Icons.phone),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.15),
+                            spreadRadius: 0,
+                            blurRadius: 5,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: TextFormField(
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 145, 142, 142)),
+                          controller: _addressController,
+                          decoration: const InputDecoration(
+                            fillColor: Color.fromARGB(255, 116, 114, 114),
+                            border: InputBorder.none,
+                            hintText: "Address",
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 145, 142, 142),
+                            ),
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Icon(Icons.home),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.15),
+                            spreadRadius: 0,
+                            blurRadius: 5,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: TextFormField(
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 145, 142, 142)),
+                          controller: _genderController,
+                          decoration: const InputDecoration(
+                            fillColor: Color.fromARGB(255, 116, 114, 114),
+                            border: InputBorder.none,
+                            hintText: "Gender",
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 145, 142, 142),
+                            ),
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Icon(Icons.male),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        label: const Text(
+                          'Update Profile',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                          ),
+                        ),
+                        icon: const Icon(Icons.edit_note),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(10), // <-- Radius
+                          ),
+                        ),
+                        onPressed: () {
+                          // _showNotification();
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
 }
