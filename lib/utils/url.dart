@@ -5,6 +5,7 @@ const baseUrl = "http://10.0.2.2:90/";
 const loginUrl = "user/login";
 const getUserUrl = "user/get";
 const registerUrl = 'user/register';
+const updateProfileUrl = "user/update_profile";
 const vehicleUrl = 'vehicle/get';
 const articleUrl = 'article/get';
 // String? token;

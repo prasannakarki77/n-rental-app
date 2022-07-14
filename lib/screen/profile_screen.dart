@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nrental/utils/show_message.dart';
 import 'package:nrental/utils/url.dart';
 
 import '../model/user.dart';
@@ -19,6 +20,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _emailController = TextEditingController();
   final _addressController = TextEditingController();
   final _genderController = TextEditingController();
+  final _usernameController = TextEditingController();
+  String? gender;
+
+  _updateProfile(User user) async {
+    bool isUpdated = await UserRepository().updateProfile(user);
+    if (isUpdated) {
+      _displayMessage(true);
+    } else {
+      _displayMessage(false);
+    }
+  }
+
+  _displayMessage(bool isUpdated) {
+    if (isUpdated) {
+      displaySuccessMessage(context, "Updated successfully");
+      setState(() {});
+    } else {
+      displayErrorMessage(context, "Update Failed");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -324,13 +346,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _phoneController.text = userData.phone ?? "";
     _addressController.text = userData.address ?? "";
     _genderController.text = userData.gender ?? "";
+    _usernameController.text = userData.username;
   }
 
   void _updateForm(context, userData) => showModalBottomSheet<void>(
-        backgroundColor: Colors.transparent,
-        context: context,
-        isScrollControlled: true,
-        builder: (BuildContext context) {
+      backgroundColor: Colors.transparent,
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(builder: (BuildContext context, setState) {
           return Container(
             height: MediaQuery.of(context).size.height * 0.75,
             decoration: const BoxDecoration(
@@ -564,8 +588,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
+                    // Expanded(
+                    //   child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         Expanded(
+                    //           child: ListTile(
+                    //             title: const Text("Male"),
+                    //             leading: Radio(
+                    //                 value: "male",
+                    //                 groupValue: gender,
+                    //                 onChanged: (value) {
+                    //                   setState() {
+                    //                     gender = value.toString();
+                    //                   }
+                    //                 }),
+                    //           ),
+                    //         ),
+                    //         Expanded(
+                    //           child: ListTile(
+                    //             title: const Text("Female"),
+                    //             leading: Radio(
+                    //                 value: "female",
+                    //                 groupValue: gender,
+                    //                 onChanged: (value) {
+                    //                   setState() {
+                    //                     gender = value.toString();
+                    //                   }
+                    //                 }),
+                    //           ),
+                    //         )
+                    //       ]),
+                    // ),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -632,6 +688,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         onPressed: () {
                           // _showNotification();
+                          User user = User(
+                            email: _emailController.text,
+                            phone: _phoneController.text,
+                            firstname: _firstnameController.text,
+                            lastname: _lastnameController.text,
+                            username: _usernameController.text,
+                            gender: _genderController.text,
+                            address: _addressController.text,
+                          );
+                          _updateProfile(user);
                           Navigator.pop(context);
                         },
                       ),
@@ -641,6 +707,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           );
-        },
-      );
+        });
+      });
 }

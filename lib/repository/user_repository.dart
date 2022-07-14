@@ -9,6 +9,10 @@ class UserRepository {
     return await UserApi().registerUser(user);
   }
 
+  Future<bool> updateProfile(User user) async {
+    return await UserApi().updateProfile(user);
+  }
+
   Future<bool> loginUser(String username, String password) {
     return UserApi().loginUser(username, password);
   }
