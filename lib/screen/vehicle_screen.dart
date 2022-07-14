@@ -1,6 +1,9 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:nrental/model/booking.dart';
 import 'package:nrental/model/vehicle.dart';
+import 'package:nrental/repository/booking_repository.dart';
+import 'package:nrental/utils/show_message.dart';
 import 'package:nrental/utils/url.dart';
 
 class VehicleScreen extends StatefulWidget {
@@ -12,9 +15,23 @@ class VehicleScreen extends StatefulWidget {
 
 class _VehicleScreenState extends State<VehicleScreen> {
   final _daysController = TextEditingController();
-  final _dateController = TextEditingController();
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
+
+  DateTime pickedDate = DateTime.now();
+  TimeOfDay time = TimeOfDay.now();
+
+  final _timeController = TextEditingController();
+  final _dateController = TextEditingController();
+
+  _dateSelected() {
+    _dateController.text =
+        "${pickedDate.year} - ${pickedDate.month} - ${pickedDate.day}";
+  }
+
+  _timeSelected() {
+    _timeController.text = "${time.hour}: ${time.minute}";
+  }
 
   int counter = 1;
   _checkNotificationEnabled() {
@@ -27,13 +44,32 @@ class _VehicleScreenState extends State<VehicleScreen> {
     );
   }
 
-  _showNotification() {
+  _bookVehicle(Booking booking, vehicleId, vehicleName) async {
+    bool isBooked = await BookingRepository().addBooking(booking, vehicleId);
+    if (isBooked) {
+      _displayMessage(true);
+      _showNotification(
+          vehicleName!, booking.booking_date!, booking.booking_time!);
+    } else {
+      _displayMessage(false);
+    }
+  }
+
+  _displayMessage(bool isBooked) {
+    if (isBooked) {
+      displaySuccessMessage(context, "Booking success");
+    } else {
+      displayErrorMessage(context, "Booking Failed");
+    }
+  }
+
+  _showNotification(String vehicle, String date, String time) {
     AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: counter,
         channelKey: 'basic_channel',
-        title: "Car Booked",
-        body: 'You have successfully booked a tesla',
+        title: "$vehicle booked",
+        body: 'You have successfully booked a $vehicle for $date, $time',
       ),
     );
     setState(() {
@@ -53,8 +89,10 @@ class _VehicleScreenState extends State<VehicleScreen> {
     void _bookingForm(context) => showModalBottomSheet<void>(
           backgroundColor: Colors.transparent,
           context: context,
+          isScrollControlled: true,
           builder: (BuildContext context) {
             return Container(
+              height: MediaQuery.of(context).size.height * 0.65,
               decoration: const BoxDecoration(
                 // color: Color.fromARGB(255, 242, 238, 238),
                 color: Colors.white,
@@ -70,6 +108,10 @@ class _VehicleScreenState extends State<VehicleScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       _dateField(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      _timeField(),
                       const SizedBox(
                         height: 20,
                       ),
@@ -105,7 +147,17 @@ class _VehicleScreenState extends State<VehicleScreen> {
                             ),
                           ),
                           onPressed: () {
-                            _showNotification();
+                            Booking booking = Booking(
+                              no_of_days: _daysController.text,
+                              booking_date: _dateController.text,
+                              booking_time: _timeController.text,
+                              address: _addressController.text,
+                              contact_no: _phoneController.text,
+                            );
+
+                            _bookVehicle(
+                                booking, vehicle.id, vehicle.vehicle_name);
+
                             Navigator.pop(context);
                           },
                         ),
@@ -246,6 +298,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
   }
 
   Widget _dateField() => TextFormField(
+        readOnly: true,
         controller: _dateController,
         style: const TextStyle(
           fontSize: 18,
@@ -255,7 +308,44 @@ class _VehicleScreenState extends State<VehicleScreen> {
           fillColor: Colors.white,
           filled: true,
           labelText: "Booking Date",
-          suffixIcon: const Icon(Icons.calendar_month),
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.calendar_month),
+            onPressed: () {
+              _pickDate();
+            },
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: Color.fromARGB(255, 234, 98, 7),
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.circular(10)),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Color.fromARGB(255, 135, 142, 135),
+              width: 2.0,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+  Widget _timeField() => TextFormField(
+        readOnly: true,
+        controller: _timeController,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+        decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
+          labelText: "Booking Time",
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.timer),
+            onPressed: () {
+              _pickTime();
+            },
+          ),
           focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: Color.fromARGB(255, 234, 98, 7),
@@ -272,6 +362,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
         ),
       );
   Widget _daysField() => TextFormField(
+        keyboardType: TextInputType.number,
         controller: _daysController,
         style: const TextStyle(
           fontSize: 18,
@@ -281,7 +372,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
           fillColor: Colors.white,
           filled: true,
           labelText: "No of Days",
-          suffixIcon: const Icon(Icons.timer),
+          suffixIcon: const Icon(Icons.sunny),
           focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: Color.fromARGB(255, 234, 98, 7),
@@ -298,6 +389,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
         ),
       );
   Widget _phoneField() => TextFormField(
+        keyboardType: TextInputType.number,
         controller: _phoneController,
         style: const TextStyle(
           fontSize: 18,
@@ -323,6 +415,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
           ),
         ),
       );
+
   Widget _addressField() => TextFormField(
         controller: _addressController,
         style: const TextStyle(
@@ -332,7 +425,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
-          labelText: "No of Days",
+          labelText: "Address",
           suffixIcon: const Icon(Icons.location_on),
           focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(
@@ -349,4 +442,32 @@ class _VehicleScreenState extends State<VehicleScreen> {
           ),
         ),
       );
+
+  _pickDate() async {
+    DateTime? date = await showDatePicker(
+      context: context,
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime(DateTime.now().year + 5),
+      initialDate: pickedDate,
+    );
+    if (date != null) {
+      setState(() {
+        pickedDate = date;
+        _dateSelected();
+      });
+    }
+  }
+
+  _pickTime() async {
+    TimeOfDay? t = await showTimePicker(
+      context: context,
+      initialTime: time,
+    );
+    if (t != null) {
+      setState(() {
+        time = t;
+        _timeSelected();
+      });
+    }
+  }
 }

@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nrental/utils/show_message.dart';
 import 'package:nrental/utils/url.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../model/user.dart';
 import '../repository/user_repository.dart';
@@ -38,6 +42,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {});
     } else {
       displayErrorMessage(context, "Update Failed");
+    }
+  }
+
+  Future<void> requestCameraPermission() async {
+    final cameraStatus = await Permission.camera.status;
+    if (cameraStatus.isDenied) {
+      await Permission.camera.request();
+    }
+  }
+
+  File? img;
+  Future _loadImage(ImageSource imageSource) async {
+    try {
+      final image = await ImagePicker().pickImage(source: imageSource);
+      if (image != null) {
+        setState(() {
+          img = File(image.path);
+        });
+      } else {
+        return;
+      }
+    } catch (e) {
+      debugPrint('Failed to pick Image $e');
     }
   }
 
@@ -80,7 +107,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   : const NetworkImage(
                       'https://icg.webspace.durham.ac.uk/wp-content/uploads/sites/142/2021/04/4x5-Avatar.jpg'),
             ),
-            onTap: () {}),
+            onTap: () {
+              requestCameraPermission();
+              showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return photoPopup();
+                  });
+            }),
         const SizedBox(
           height: 20,
         ),
@@ -709,4 +743,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
           );
         });
       });
+  Widget photoPopup() => SizedBox(
+        height: 150,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 8),
+            SizedBox(
+              width: 350,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  _loadImage(ImageSource.camera);
+                },
+                icon: const Icon(Icons.camera_enhance),
+                label: const Text('Take Photo'),
+              ),
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: 350,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  _loadImage(ImageSource.gallery);
+                },
+                icon: const Icon(Icons.browse_gallery_sharp),
+                label: const Text('Choose Photo'),
+              ),
+            ),
+          ],
+        ),
+      );
 }

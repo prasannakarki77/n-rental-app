@@ -107,6 +107,29 @@ class UserApi {
     }
     return isUpdated;
   }
+
+  Future<bool> updateProfileImage(User user) async {
+    bool isUpdated = false;
+    Response response;
+    var dio = HttpServices().getDioInstance();
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.getString("token");
+      String? token = prefs.getString("token");
+      response = await dio.put(updateProfileUrl,
+          data: user.toJson(),
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: "Bearer $token",
+          }));
+
+      if (response.statusCode == 201) {
+        return isUpdated = true;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return isUpdated;
+  }
 }
 
 _setDataToSharedPref(String token) async {

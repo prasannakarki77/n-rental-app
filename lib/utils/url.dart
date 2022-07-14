@@ -6,6 +6,10 @@ const loginUrl = "user/login";
 const getUserUrl = "user/get";
 const registerUrl = 'user/register';
 const updateProfileUrl = "user/update_profile";
+const updateImageUrl = "user/update_profile_img";
+
 const vehicleUrl = 'vehicle/get';
+const bookingUrl = "booking/add/";
+
 const articleUrl = 'article/get';
 // String? token;
