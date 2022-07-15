@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:nrental/screen/about_screen.dart';
 import 'package:nrental/screen/article_details_screen.dart';
 import 'package:nrental/screen/article_screen.dart';
+import 'package:nrental/screen/booking_detail_screen.dart';
 import 'package:nrental/screen/booking_screen.dart';
 import 'package:nrental/screen/dashboard_screen.dart';
 import 'package:nrental/screen/login_screen.dart';
@@ -53,9 +54,10 @@ void main() {
         '/searchScreen': (context) => const SearchScreen(),
         '/aboutScreen': (context) => const AboutScreen(),
         '/vehicleScreen': (context) => const VehicleScreen(),
-        '/articleScreen': (context) => const ArticleScreen(),
-        '/profileScreen': (context) => const ProfileScreen(),
+         '/profileScreen': (context) => const ProfileScreen(),
         '/bookingScreen': (context) => const BookingScreen(),
+        '/bookingDetailScreen': (context) => const BookingDetailScreen(),
+        '/articleScreen': (context) => const ArticleScreen(),
         '/articleDetailsScreen': (context) => const ArticleDetailsScreen(),
       },
     ),

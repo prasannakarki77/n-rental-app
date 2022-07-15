@@ -17,7 +17,7 @@ class _BookingScreenState extends State<BookingScreen> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(8),
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -240,49 +240,92 @@ class _BookingScreenState extends State<BookingScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromRGBO(255, 114, 94, 1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10), // <-- Radius
                         ),
                       ),
-                      child: const Text(
-                        "Read more",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      onPressed: () => {
-                        // Navigator.pushNamed(context, '/articleDetailsScreen',
-                        //     arguments: article)
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/bookingDetailScreen',
+                            arguments: booking);
                       },
+                      icon: const Icon(Icons.arrow_left_outlined),
+                      label: const Text('View Details'),
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color.fromRGBO(255, 114, 94, 1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10), // <-- Radius
-                        ),
-                      ),
-                      child: const Text(
-                        "Read more",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      onPressed: () => {
-                        // Navigator.pushNamed(context, '/articleDetailsScreen',
-                        //     arguments: article)
-                      },
-                    ),
-                  ],
+                  ),
                 ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     ElevatedButton.icon(
+                //       style: ElevatedButton.styleFrom(
+                //         primary: Colors.green,
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(10), // <-- Radius
+                //         ),
+                //       ),
+                //       onPressed: () {},
+                //       icon: const Icon(Icons.edit_note_sharp),
+                //       label: const Text('Update'),
+                //     ),
+                //     // ElevatedButton(
+                //     //   style: ElevatedButton.styleFrom(
+                //     //     primary: const Color.fromRGBO(255, 114, 94, 1),
+                //     //     shape: RoundedRectangleBorder(
+                //     //       borderRadius: BorderRadius.circular(10), // <-- Radius
+                //     //     ),
+                //     //   ),
+                //     //   child: const Text(
+                //     //     "Read more",
+                //     //     style: TextStyle(
+                //     //       fontSize: 16,
+                //     //       fontWeight: FontWeight.w500,
+                //     //     ),
+                //     //   ),
+                //     //   onPressed: () => {
+                //     //     // Navigator.pushNamed(context, '/articleDetailsScreen',
+                //     //     //     arguments: article)
+                //     //   },
+                //     // ),
+                //     // ElevatedButton(
+                //     //   style: ElevatedButton.styleFrom(
+                //     //     primary: const Color.fromRGBO(255, 114, 94, 1),
+                //     //     shape: RoundedRectangleBorder(
+                //     //       borderRadius: BorderRadius.circular(10), // <-- Radius
+                //     //     ),
+                //     //   ),
+
+                //     //   child: const Text(
+                //     //     "Read more",
+                //     //     style: TextStyle(
+                //     //       fontSize: 16,
+                //     //       fontWeight: FontWeight.w500,
+                //     //     ),
+                //     //   ),
+                //     //   onPressed: () => {
+                //     //     // Navigator.pushNamed(context, '/articleDetailsScreen',
+                //     //     //     arguments: article)
+                //     //   },
+                //     // ),
+                //     ElevatedButton.icon(
+                //       style: ElevatedButton.styleFrom(
+                //         primary: const Color.fromRGBO(255, 114, 94, 1),
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(10), // <-- Radius
+                //         ),
+                //       ),
+                //       onPressed: () {},
+                //       icon: const Icon(Icons.edit_note_sharp),
+                //       label: const Text('Update'),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           )
