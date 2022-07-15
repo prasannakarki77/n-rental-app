@@ -10,6 +10,7 @@ const updateImageUrl = "user/update_profile_img";
 
 const vehicleUrl = 'vehicle/get';
 const bookingUrl = "booking/add/";
+const getBookingUrl = "/user/booking/get";
 
 const articleUrl = 'article/get';
 // String? token;

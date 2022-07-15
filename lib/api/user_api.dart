@@ -71,10 +71,7 @@ class UserApi {
             HttpHeaders.authorizationHeader: "Bearer $token",
           }));
       if (response.statusCode == 201) {
-        print(response);
-
         userResponse = UserResponse.fromJson(response.data);
-        print(userResponse);
       } else {
         userResponse = null;
       }

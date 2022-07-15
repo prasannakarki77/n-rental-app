@@ -14,11 +14,7 @@ class ArticleAPI {
       Response response = await dio.get(articleUrl);
 
       if (response.statusCode == 201) {
-        print(ArticleResponse());
-        print(response.data);
-
         articleResponse = ArticleResponse.fromJson(response.data);
-        print(ArticleResponse());
       } else {
         articleResponse = null;
       }

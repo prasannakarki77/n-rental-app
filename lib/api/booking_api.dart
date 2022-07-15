@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:nrental/api/http_services.dart';
 import 'package:nrental/model/booking.dart';
+import 'package:nrental/response/booking_vehicle_response.dart';
 import 'package:nrental/utils/url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,22 +27,32 @@ class BookingAPI {
     return false;
   }
 
-  // Future<BookingResponse?> getBooking() async {
-  //   Future.delayed(const Duration(seconds: 2), () {});
-  //   BookingResponse? bookingResponse;
-  //   try {
-  //     var dio = HttpServices().getDioInstance();
-  //     Response response = await dio.get(get);
-  //     if (response.statusCode == 201) {
-  //       productResponse = ProductResponse.fromJson(response.data);
-  //     } else {
-  //       productResponse = null;
-  //     }
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  //   return productResponse;
-  // }
+  Future<BookingVehicleResponse?> getBooking() async {
+    Future.delayed(const Duration(seconds: 2), () {});
+    BookingVehicleResponse? bookingVehicleResponse;
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.getString("token");
+      String? token = prefs.getString("token");
+      var dio = HttpServices().getDioInstance();
+
+      Response response = await dio.get(getBookingUrl,
+          options: Options(headers: {
+            HttpHeaders.authorizationHeader: "Bearer $token",
+          }));
+      print("boook res");
+      print(response);
+      if (response.statusCode == 201) {
+        bookingVehicleResponse = BookingVehicleResponse.fromJson(response.data);
+        print("booo");
+      } else {
+        bookingVehicleResponse = null;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+    return bookingVehicleResponse;
+  }
 }
 
 

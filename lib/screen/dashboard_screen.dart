@@ -3,6 +3,7 @@ import "package:curved_navigation_bar/curved_navigation_bar.dart";
 import 'package:nrental/model/user.dart';
 import 'package:nrental/repository/user_repository.dart';
 import 'package:nrental/response/user_response.dart';
+import 'package:nrental/screen/booking_screen.dart';
 import 'package:nrental/screen/home_screen.dart';
 import 'package:nrental/screen/profile_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
@@ -28,7 +29,7 @@ class _DashboardScreemState extends State<DashboardScreem> {
     SearchScreen(),
     HomeScreen(),
     HomeScreen(),
-    HomeScreen(),
+    BookingScreen(),
   ];
   _removeDataFromSharedPref() async {
     try {
@@ -66,7 +67,7 @@ class _DashboardScreemState extends State<DashboardScreem> {
         size: 30,
       ),
       const Icon(
-        Icons.settings,
+        Icons.car_rental,
         size: 30,
       ),
     ];
@@ -131,7 +132,7 @@ class _DashboardScreemState extends State<DashboardScreem> {
                         icon: Icons.car_rental,
                         onClicked: () => setState(() {
                           Navigator.of(context).pop();
-                          index = 3;
+                          index = 4;
                         }),
                       ),
                       buildMenuItem(
