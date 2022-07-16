@@ -122,18 +122,3 @@ class BookingAPI {
     return bookingDetailsResponse;
   }
 }
-
-
-   // var formData = FormData.fromMap(
-      //   {
-      //     "name": "test",
-      //     "description": "test",
-      //     "image": image,
-      //     "price": "234",
-      //     "category": "6281fdb044d29546f08846d4",
-      //     "countInStock": "2",
-      //     "rating": "3",
-      //     "numReviews": "3",
-      //     "isFeatured": "false",
-      //   },
-      // );

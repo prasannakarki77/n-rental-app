@@ -15,5 +15,7 @@ const getBookingDetailsUrl = "/booking/get/details/";
 const deleteBookingUrl = "/booking/delete/";
 const updateBookingUrl = "/booking/update/";
 
+const addReviewUrl = "review/insert/";
+
 const articleUrl = 'article/get';
 // String? token;

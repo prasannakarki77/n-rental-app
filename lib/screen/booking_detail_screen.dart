@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nrental/model/booking_vehicle.dart';
+import 'package:nrental/model/review.dart';
 import 'package:nrental/repository/booking_repository.dart';
+import 'package:nrental/repository/review_repository.dart';
 import 'package:nrental/response/booking_details_response.dart';
 import 'package:nrental/utils/show_message.dart';
 import 'package:nrental/utils/url.dart';
@@ -55,6 +57,16 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
     bool isUpdated =
         await BookingRepository().updateBooking(booking, bookingId);
     if (isUpdated) {
+      _displayMessage(true);
+    } else {
+      _displayMessage(false);
+    }
+  }
+
+  _addReview(Review review, vehicleId) async {
+    bool success = await ReviewRepository().addReview(review, vehicleId);
+    Navigator.pop(context, 'Yes');
+    if (success) {
       _displayMessage(true);
     } else {
       _displayMessage(false);
@@ -429,6 +441,8 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                   ),
                 ),
                 onPressed: () {
+                  ratingValue = "3";
+                  _reviewController.text = "";
                   _showAddReviewDialog(booking.vehicle_id!.id);
                 },
               ),
@@ -802,7 +816,11 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
-                    _deleteBooking(vehicleId);
+                    Review review = Review(
+                      rating: ratingValue,
+                      review: _reviewController.text,
+                    );
+                    _addReview(review, vehicleId);
                   },
                   child: const Text('Submit'),
                 ),
