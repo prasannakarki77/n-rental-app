@@ -253,7 +253,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       ),
                       onPressed: () {
                         Navigator.pushNamed(context, '/bookingDetailScreen',
-                            arguments: booking);
+                            arguments: booking.id);
                       },
                       icon: const Icon(Icons.arrow_left_outlined),
                       label: const Text('View Details'),
