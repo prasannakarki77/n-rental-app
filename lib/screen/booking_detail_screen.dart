@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nrental/model/booking_vehicle.dart';
 import 'package:nrental/repository/booking_repository.dart';
 import 'package:nrental/response/booking_details_response.dart';
@@ -24,6 +25,9 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
 
   final _timeController = TextEditingController();
   final _dateController = TextEditingController();
+
+  final _reviewController = TextEditingController();
+  String? ratingValue;
 
   _dateSelected() {
     _dateController.text =
@@ -203,7 +207,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                         ),
                       ),
                       onPressed: () {
-                        _showMyDialog(booking.id);
+                        _showCancelBookingDialog(booking.id);
                       },
                     ),
                   ),
@@ -425,7 +429,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                   ),
                 ),
                 onPressed: () {
-                  // _bookingForm(context);
+                  _showAddReviewDialog(booking.vehicle_id!.id);
                 },
               ),
             ),
@@ -695,7 +699,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
         },
       );
 
-  Future<Future<String?>> _showMyDialog(bookingId) async {
+  Future<Future<String?>> _showCancelBookingDialog(bookingId) async {
     return showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -712,6 +716,99 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                 TextButton(
                   onPressed: () => Navigator.pop(context, 'No'),
                   child: const Text('No'),
+                ),
+              ],
+            ));
+  }
+
+  Future<Future<String?>> _showAddReviewDialog(vehicleId) async {
+    return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Add Review'),
+              content: SizedBox(
+                height: 230,
+                width: 300,
+                child: Column(
+                  children: [
+                    const Text(
+                      "Rate it!!",
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    RatingBar.builder(
+                      initialRating: 3,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: false,
+                      itemCount: 5,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        ratingValue = rating.toStringAsFixed(0);
+                        print(ratingValue);
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const SizedBox(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Enter Review",
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(13),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.15),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        maxLines: 5,
+                        controller: _reviewController,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(8.0),
+                          fillColor: Colors.black,
+                          border: InputBorder.none,
+                          // labelText: "Enter review",
+                          labelStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    _deleteBooking(vehicleId);
+                  },
+                  child: const Text('Submit'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'No'),
+                  child: const Text('Cancel'),
                 ),
               ],
             ));
