@@ -12,18 +12,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../components/custom_shape.dart';
 import '../utils/url.dart';
 
-class DashboardScreem extends StatefulWidget {
-  const DashboardScreem({Key? key}) : super(key: key);
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
-  State<DashboardScreem> createState() => _DashboardScreemState();
+  State<DashboardScreen> createState() => _DashboardScreemState();
 }
 
-class _DashboardScreemState extends State<DashboardScreem> {
+class _DashboardScreemState extends State<DashboardScreen> {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
   final navigationKey = GlobalKey<CurvedNavigationBarState>();
   int index = 2;
-
+  // int screenIndex =
   final screens = const [
     ProfileScreen(),
     SearchScreen(),

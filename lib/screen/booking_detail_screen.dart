@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nrental/model/booking_vehicle.dart';
+import 'package:nrental/repository/booking_repository.dart';
 import 'package:nrental/utils/show_message.dart';
 import 'package:nrental/utils/url.dart';
 
@@ -32,16 +33,29 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
     _timeController.text = "${time.hour}: ${time.minute}";
   }
 
-  _displayMessage(bool isBooked) {
-    if (isBooked) {
-      displaySuccessMessage(context, "Booking success");
+  _deleteBooking(bookingId) async {
+    bool isDeleted = await BookingRepository().deleteBooking(bookingId);
+    if (isDeleted) {
+      setState(() {
+        Navigator.pushNamed(context, '/dashboardScreen');
+      });
+      _displayMessage(true);
     } else {
-      displayErrorMessage(context, "Booking Failed");
+      Navigator.pop(context, 'ok');
+      _displayMessage(false);
+    }
+  }
+
+  _displayMessage(bool isDeleted) {
+    if (isDeleted) {
+      displaySuccessMessage(context, "Booking canceled");
+    } else {
+      displayErrorMessage(context, "Booking Cancellation Failed");
     }
   }
 
   _setTextFieldValues(booking) {
-    _daysController.text = booking.no_of_days.toString() ?? "";
+    _daysController.text = booking.no_of_days.toString();
     _dateController.text = booking.booking_date ?? "";
     _addressController.text = booking.address ?? "";
     _phoneController.text = booking.contact_no ?? "";
@@ -155,7 +169,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                             ),
                           ),
                           onPressed: () {
-                            _showMyDialog();
+                            _showMyDialog(booking.id);
                           },
                         ),
                       ),
@@ -651,7 +665,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
         },
       );
 
-  Future<Future<String?>> _showMyDialog() async {
+  Future<Future<String?>> _showMyDialog(bookingId) async {
     return showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -660,7 +674,9 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                   const Text('Are you sure you want to cancel this booking?'),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
+                  onPressed: () {
+                    _deleteBooking(bookingId);
+                  },
                   child: const Text('Yes'),
                 ),
                 TextButton(
