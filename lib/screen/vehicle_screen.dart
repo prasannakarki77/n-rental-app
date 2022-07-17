@@ -6,6 +6,10 @@ import 'package:nrental/repository/booking_repository.dart';
 import 'package:nrental/utils/show_message.dart';
 import 'package:nrental/utils/url.dart';
 
+import '../model/review.dart';
+import '../repository/review_repository.dart';
+import '../response/review_response.dart';
+
 class VehicleScreen extends StatefulWidget {
   const VehicleScreen({Key? key}) : super(key: key);
 
@@ -195,12 +199,19 @@ class _VehicleScreenState extends State<VehicleScreen> {
                         ),
                       ),
                     ),
-                    const Positioned(
-                      right: 20,
-                      top: 20,
-                      child: Icon(
-                        Icons.bookmark,
-                        color: Color.fromARGB(255, 228, 224, 224),
+                    Positioned(
+                      right: 0,
+                      top: 0,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color.fromRGBO(255, 114, 94, 1),
+                          shape: const CircleBorder(),
+                        ),
+                        onPressed: () {},
+                        child: const Icon(
+                          Icons.bookmark_add,
+                          color: Color.fromARGB(255, 255, 255, 255),
+                        ),
                       ),
                     ),
                     Positioned(
@@ -289,6 +300,70 @@ class _VehicleScreenState extends State<VehicleScreen> {
               const Divider(
                 color: Color.fromARGB(179, 174, 173, 173),
                 thickness: 3,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Reviews',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 94, 103, 95)),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Icon(
+                    Icons.rate_review_sharp,
+                    color: Colors.red,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SingleChildScrollView(
+                child: FutureBuilder<ReviewResponse?>(
+                  future: ReviewRepository().getReview(vehicle.id),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        List<Review> lstReviews = snapshot.data!.data!;
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.data!.length,
+                            itemBuilder: (context, index) {
+                              final review = lstReviews[index];
+                              print(review);
+                              return _loadReview(review);
+                            });
+                      } else {
+                        return const Center(
+                          child: Text("No data"),
+                        );
+                      }
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.blue),
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             ],
           ),
@@ -470,4 +545,76 @@ class _VehicleScreenState extends State<VehicleScreen> {
       });
     }
   }
+
+  Widget _loadReview(review) => Container(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 14,
+                      backgroundImage: review.user_id.profile_img != null
+                          ? NetworkImage(
+                              '$baseUrl${review.user_id.profile_img}')
+                          : const NetworkImage(
+                              'https://icg.webspace.durham.ac.uk/wp-content/uploads/sites/142/2021/04/4x5-Avatar.jpg'),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "${review.user_id.username}",
+                      style: const TextStyle(
+                          fontSize: 14,
+                          color: Color.fromARGB(255, 47, 46, 46),
+                          fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text("${review.rating}"),
+                    const Icon(
+                      Icons.star,
+                      color: Colors.red,
+                      size: 14,
+                    )
+                  ],
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(13),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.15),
+                        spreadRadius: 0,
+                        blurRadius: 5,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text("${review.review}"))),
+            ),
+            const SizedBox(
+              height: 30,
+            )
+          ],
+        ),
+      );
 }

@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:nrental/model/vehicle.dart';
+import 'package:nrental/model/user.dart';
 
 part 'review.g.dart';
 
@@ -7,8 +7,8 @@ part 'review.g.dart';
 class Review {
   @JsonKey(name: '_id')
   String? id;
-  String? user_id;
-  Vehicle? vehicle_id;
+  User? user_id;
+  String? vehicle_id;
   String? rating;
   String? review;
   Review({

@@ -7,10 +7,10 @@ part of 'review.dart';
 // **************************************************************************
 
 Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
-      user_id: json['user_id'] as String?,
-      vehicle_id: json['vehicle_id'] == null
+      user_id: json['user_id'] == null
           ? null
-          : Vehicle.fromJson(json['vehicle_id'] as Map<String, dynamic>),
+          : User.fromJson(json['user_id'] as Map<String, dynamic>),
+      vehicle_id: json['vehicle_id'] as String?,
       rating: json['rating'] as String?,
       review: json['review'] as String?,
     )..id = json['_id'] as String?;
