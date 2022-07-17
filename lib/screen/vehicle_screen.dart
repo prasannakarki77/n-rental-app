@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nrental/model/booking.dart';
 import 'package:nrental/model/vehicle.dart';
 import 'package:nrental/repository/booking_repository.dart';
+import 'package:nrental/repository/favourite_repository.dart';
 import 'package:nrental/utils/show_message.dart';
 import 'package:nrental/utils/url.dart';
 
@@ -54,6 +55,15 @@ class _VehicleScreenState extends State<VehicleScreen> {
       _displayMessage(true);
       _showNotification(
           vehicleName!, booking.booking_date!, booking.booking_time!);
+    } else {
+      _displayMessage(false);
+    }
+  }
+
+  _addFavourite(vehicleId) async {
+    bool isAdded = await FavouriteRepository().addFavourite(vehicleId);
+    if (isAdded) {
+      _displayMessage(true);
     } else {
       _displayMessage(false);
     }
@@ -207,7 +217,9 @@ class _VehicleScreenState extends State<VehicleScreen> {
                           primary: const Color.fromRGBO(255, 114, 94, 1),
                           shape: const CircleBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          _addFavourite(vehicle.id);
+                        },
                         child: const Icon(
                           Icons.bookmark_add,
                           color: Color.fromARGB(255, 255, 255, 255),
@@ -327,43 +339,41 @@ class _VehicleScreenState extends State<VehicleScreen> {
               const SizedBox(
                 height: 20,
               ),
-              SingleChildScrollView(
-                child: FutureBuilder<ReviewResponse?>(
-                  future: ReviewRepository().getReview(vehicle.id),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        List<Review> lstReviews = snapshot.data!.data!;
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.data!.length,
-                            itemBuilder: (context, index) {
-                              final review = lstReviews[index];
-                              print(review);
-                              return _loadReview(review);
-                            });
-                      } else {
-                        return const Center(
-                          child: Text("No data"),
-                        );
-                      }
-                    } else if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
+              FutureBuilder<ReviewResponse?>(
+                future: ReviewRepository().getReview(vehicle.id),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData) {
+                      List<Review> lstReviews = snapshot.data!.data!;
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.data!.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final review = lstReviews[index];
+                            print(review);
+                            return _loadReview(review);
+                          });
                     } else {
                       return const Center(
-                        child: CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.blue),
-                        ),
+                        child: Text("No data"),
                       );
                     }
-                  },
-                ),
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                      ),
+                    );
+                  }
+                },
               ),
             ],
           ),
