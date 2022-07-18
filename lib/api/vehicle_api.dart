@@ -22,4 +22,20 @@ class VehicleAPI {
     }
     return vehicleResponse;
   }
+  Future<VehicleResponse?> getFeaturedVehicles() async {
+    Future.delayed(const Duration(seconds: 2), () {});
+    VehicleResponse? vehicleResponse;
+    try {
+      var dio = HttpServices().getDioInstance();
+      Response response = await dio.get(featuredVehicleUrl);
+      if (response.statusCode == 201) {
+        vehicleResponse = VehicleResponse.fromJson(response.data);
+      } else {
+        vehicleResponse = null;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+    return vehicleResponse;
+  }
 }

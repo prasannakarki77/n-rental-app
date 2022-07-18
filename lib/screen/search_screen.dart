@@ -168,13 +168,13 @@ class _SearchScreenState extends State<SearchScreen> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            const Align(
-              alignment: Alignment.topRight,
-              child: Icon(
-                Icons.bookmark,
-                color: Colors.grey,
-              ),
-            ),
+            // const Align(
+            //   alignment: Alignment.topRight,
+            //   child: Icon(
+            //     Icons.bookmark,
+            //     color: Colors.grey,
+            //   ),
+            // ),
             // Image.network(
             //   "https://nepalvehiclebooking.com/wp-content/uploads/2020/02/SONATA-hero-option1-764A5360-edit-640x354.jpg",
             //   height: 90,
@@ -182,7 +182,7 @@ class _SearchScreenState extends State<SearchScreen> {
             // ),
             Image.network(
               '$baseUrl${vehicle.vehicle_image}',
-              height: 90,
+              height: 100,
               fit: BoxFit.contain,
             ),
             //  baseUrl.contains('10.0.2.2')
@@ -198,7 +198,7 @@ class _SearchScreenState extends State<SearchScreen> {
             //                       lstProductCategory[index].image!),
             //                 ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Text(
               vehicle.vehicle_name,

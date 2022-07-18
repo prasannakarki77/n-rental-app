@@ -276,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           FutureBuilder<VehicleResponse?>(
-            future: VehicleRepository().getVehicles(),
+            future: VehicleRepository().getFeaturedVehicles(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
@@ -295,12 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: lstVehicles.length,
                     itemBuilder: (context, index) {
                       final vehicle = lstVehicles[index];
-                      print(vehicle.is_featured);
-                      if (vehicle.is_featured == true) {
-                        return vehicleCard(vehicle);
-                      } else {
-                        return const Text("No Data");
-                      }
+                      return vehicleCard(vehicle);
                     },
                   );
                 } else {
@@ -357,7 +352,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 20,
                   ),
                   FutureBuilder<ArticleResponse?>(
-                    future: ArticleRepository().getArticles(),
+                    future: ArticleRepository().getFeaturedArticles(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasData) {
@@ -368,13 +363,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
                                 final article = lstArticles[index];
-                                if (article.is_featured == true) {
-                                  return articleCard(article);
-                                } else {
-                                  return const Center(
-                                    child: Text("No data"),
-                                  );
-                                }
+                                return articleCard(article);
                               });
                         } else {
                           return const Center(
@@ -452,13 +441,14 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            const Align(
-              alignment: Alignment.topRight,
-              child: Icon(
-                Icons.bookmark,
-                color: Colors.grey,
-              ),
-            ),
+            // const Align(
+            //   alignment: Alignment.topRight,
+            //   child: Icon(
+            //     Icons.bookmark,
+            //     color: Colors.grey,
+            //   ),
+            // ),
+
             // Image.network(
             //   "https://nepalvehiclebooking.com/wp-content/uploads/2020/02/SONATA-hero-option1-764A5360-edit-640x354.jpg",
             //   height: 90,
@@ -466,7 +456,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // ),
             Image.network(
               '$baseUrl${vehicle.vehicle_image}',
-              height: 90,
+              height: 100,
               fit: BoxFit.contain,
             ),
             //  baseUrl.contains('10.0.2.2')
@@ -482,7 +472,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //                       lstProductCategory[index].image!),
             //                 ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Text(
               vehicle.vehicle_name,

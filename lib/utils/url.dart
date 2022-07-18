@@ -9,6 +9,7 @@ const updateProfileUrl = "user/update_profile";
 const updateImageUrl = "user/update_profile_img";
 
 const vehicleUrl = 'vehicle/get';
+const featuredVehicleUrl = 'vehicle/get/featured';
 const bookingUrl = "booking/add/";
 const getBookingUrl = "/user/booking/get";
 const getBookingDetailsUrl = "/booking/get/details/";
@@ -19,6 +20,9 @@ const addReviewUrl = "review/insert/";
 const getReviewUrl = "review/get/";
 
 const favouriteUrl = "favourite/insert/";
+const getFavouriteUrl = "favourite/get";
+const deleteFavouriteUrl = "favourite/delete/";
 
 const articleUrl = 'article/get';
+const featuredArticleUrl = 'article/get/featured';
 // String? token;

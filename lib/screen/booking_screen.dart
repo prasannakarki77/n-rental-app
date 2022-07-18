@@ -15,7 +15,7 @@ class BookingScreen extends StatefulWidget {
 class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(children: [
@@ -55,17 +55,16 @@ class _BookingScreenState extends State<BookingScreen> {
                   if (snapshot.hasData) {
                     List<BookingVehicle> lstBooking = snapshot.data!.data!;
 
-                    return Expanded(
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.data!.length,
-                          itemBuilder: (context, index) {
-                            final booking = lstBooking[index];
-                            return Padding(
-                                padding: const EdgeInsets.all(15),
-                                child: bookingCard(booking));
-                          }),
-                    );
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.data!.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final booking = lstBooking[index];
+                          return Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: bookingCard(booking));
+                        });
                   } else {
                     return const Text("No data");
                   }

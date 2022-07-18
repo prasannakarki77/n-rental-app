@@ -5,4 +5,8 @@ class VehicleRepository {
   Future<VehicleResponse?> getVehicles() async {
     return VehicleAPI().getVehicles();
   }
+
+  Future<VehicleResponse?> getFeaturedVehicles() async {
+    return VehicleAPI().getFeaturedVehicles();
+  }
 }

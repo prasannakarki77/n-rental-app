@@ -4,6 +4,7 @@ import 'package:nrental/model/user.dart';
 import 'package:nrental/repository/user_repository.dart';
 import 'package:nrental/response/user_response.dart';
 import 'package:nrental/screen/booking_screen.dart';
+import 'package:nrental/screen/favourite_screen.dart';
 import 'package:nrental/screen/home_screen.dart';
 import 'package:nrental/screen/profile_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
@@ -28,7 +29,7 @@ class _DashboardScreemState extends State<DashboardScreen> {
     ProfileScreen(),
     SearchScreen(),
     HomeScreen(),
-    HomeScreen(),
+    FavouriteScreen(),
     BookingScreen(),
   ];
   _removeDataFromSharedPref() async {
@@ -140,7 +141,7 @@ class _DashboardScreemState extends State<DashboardScreen> {
                         icon: Icons.bookmark_added,
                         onClicked: () => setState(() {
                           Navigator.of(context).pop();
-                          index = 4;
+                          index = 3;
                         }),
                       ),
                       buildMenuItem(

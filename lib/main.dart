@@ -7,6 +7,7 @@ import 'package:nrental/screen/article_screen.dart';
 import 'package:nrental/screen/booking_detail_screen.dart';
 import 'package:nrental/screen/booking_screen.dart';
 import 'package:nrental/screen/dashboard_screen.dart';
+import 'package:nrental/screen/favourite_screen.dart';
 import 'package:nrental/screen/login_screen.dart';
 import 'package:nrental/screen/profile_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
@@ -59,6 +60,7 @@ void main() {
         '/bookingDetailScreen': (context) => const BookingDetailScreen(),
         '/articleScreen': (context) => const ArticleScreen(),
         '/articleDetailsScreen': (context) => const ArticleDetailsScreen(),
+        '/favouriteScreen': (context) => const FavouriteScreen(),
       },
     ),
   );

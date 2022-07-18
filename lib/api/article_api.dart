@@ -24,4 +24,22 @@ class ArticleAPI {
 
     return articleResponse;
   }
+  Future<ArticleResponse?> getFeaturedArticles() async {
+    Future.delayed(const Duration(seconds: 2), () {});
+    ArticleResponse? articleResponse;
+    try {
+      var dio = HttpServices().getDioInstance();
+      Response response = await dio.get(featuredArticleUrl);
+
+      if (response.statusCode == 201) {
+        articleResponse = ArticleResponse.fromJson(response.data);
+      } else {
+        articleResponse = null;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+
+    return articleResponse;
+  }
 }

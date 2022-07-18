@@ -5,4 +5,7 @@ class ArticleRepository {
   Future<ArticleResponse?> getArticles() async {
     return ArticleAPI().getArticles();
   }
+  Future<ArticleResponse?> getFeaturedArticles() async {
+    return ArticleAPI().getFeaturedArticles();
+  }
 }
