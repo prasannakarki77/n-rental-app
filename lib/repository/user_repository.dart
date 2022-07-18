@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:nrental/api/user_api.dart';
 import 'package:nrental/response/user_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +13,10 @@ class UserRepository {
 
   Future<bool> updateProfile(User user) async {
     return await UserApi().updateProfile(user);
+  }
+
+  Future<bool> updateProfileImage(File? img) async {
+    return await UserApi().updateProfileImage(img);
   }
 
   Future<bool> updatePassword(Map<String, dynamic> password) async {

@@ -87,12 +87,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (image != null) {
         setState(() {
           img = File(image.path);
+          _updateProfileImage(img);
         });
       } else {
         return;
       }
     } catch (e) {
       debugPrint('Failed to pick Image $e');
+    }
+  }
+
+  _updateProfileImage(img) async {
+    bool isUpdated = await UserRepository().updateProfileImage(img);
+    if (isUpdated) {
+      _displayMessage(isUpdated);
+    } else {
+      _displayMessage(isUpdated);
     }
   }
 

@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mime/mime.dart';
 import 'package:nrental/api/http_services.dart';
 import 'package:nrental/response/login_response.dart';
 import 'package:nrental/response/user_response.dart';
 import 'package:nrental/utils/url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:http_parser/http_parser.dart';
 import '../model/user.dart';
 
 class UserApi {
@@ -130,16 +130,28 @@ class UserApi {
     return isUpdated;
   }
 
-  Future<bool> updateProfileImage(User user) async {
+  Future<bool> updateProfileImage(File? file) async {
     bool isUpdated = false;
     Response response;
     var dio = HttpServices().getDioInstance();
+    MultipartFile? image;
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.getString("token");
       String? token = prefs.getString("token");
-      response = await dio.put(updateProfileUrl,
-          data: user.toJson(),
+      if (file != null) {
+        var mimeType = lookupMimeType(file.path);
+        image = await MultipartFile.fromFile(
+          file.path,
+          filename: file.path.split("/").last,
+          contentType: MediaType("image", mimeType!.split("/")[1]),
+        );
+      }
+      var formData = FormData.fromMap({
+        "user_img": image,
+      });
+      response = await dio.put(updateImageUrl,
+          data: formData,
           options: Options(headers: {
             HttpHeaders.authorizationHeader: "Bearer $token",
           }));
