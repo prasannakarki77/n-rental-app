@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:nrental/model/user.dart';
 import 'package:nrental/model/vehicle.dart';
 
 part 'favourite.g.dart';
