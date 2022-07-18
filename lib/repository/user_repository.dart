@@ -13,6 +13,10 @@ class UserRepository {
     return await UserApi().updateProfile(user);
   }
 
+  Future<bool> updatePassword(Map<String, dynamic> password) async {
+    return await UserApi().updatePassword(password);
+  }
+
   Future<bool> loginUser(String username, String password) {
     return UserApi().loginUser(username, password);
   }

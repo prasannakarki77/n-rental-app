@@ -155,14 +155,14 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                     ),
                   ),
                 ),
-                const Positioned(
-                  right: 20,
-                  top: 20,
-                  child: Icon(
-                    Icons.bookmark,
-                    color: Color.fromARGB(255, 228, 224, 224),
-                  ),
-                ),
+                // const Positioned(
+                //   right: 20,
+                //   top: 20,
+                //   child: Icon(
+                //     Icons.bookmark,
+                //     color: Color.fromARGB(255, 228, 224, 224),
+                //   ),
+                // ),
                 Positioned(
                   bottom: 10,
                   left: 10,

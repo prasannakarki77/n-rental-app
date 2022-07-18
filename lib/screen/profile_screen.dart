@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nrental/utils/show_message.dart';
 import 'package:nrental/utils/url.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/user.dart';
 import '../repository/user_repository.dart';
@@ -28,6 +29,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _oldPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
   String? gender;
+
+  _removeDataFromSharedPref() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove("token");
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  _logoutUser() {
+    setState(() {
+      _removeDataFromSharedPref();
+      Navigator.pushNamed(context, '/');
+    });
+  }
+
+  _updatePassword(Map<String, dynamic> password) async {
+    bool isUpdated = await UserRepository().updatePassword(password);
+    if (isUpdated) {
+      _displayMessage(true);
+    } else {
+      _displayMessage(false);
+    }
+  }
 
   _updateProfile(User user) async {
     bool isUpdated = await UserRepository().updateProfile(user);
@@ -864,7 +890,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 BorderRadius.circular(10), // <-- Radius
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Map<String, dynamic> password = {
+                            'old_password': _oldPasswordController.text,
+                            'new_password': _newPasswordController.text
+                          };
+                          _updatePassword(password);
+                          _logoutUser();
+                        },
                         icon: const Icon(Icons.key_rounded),
                         label: const Text(
                           'Change Password',

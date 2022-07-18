@@ -7,6 +7,7 @@ const getUserUrl = "user/get";
 const registerUrl = 'user/register';
 const updateProfileUrl = "user/update_profile";
 const updateImageUrl = "user/update_profile_img";
+const updatePasswordUrl = "password/update";
 
 const vehicleUrl = 'vehicle/get';
 const featuredVehicleUrl = 'vehicle/get/featured';

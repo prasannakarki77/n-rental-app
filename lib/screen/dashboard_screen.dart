@@ -151,22 +151,23 @@ class _DashboardScreemState extends State<DashboardScreen> {
                           Navigator.pushNamed(context, '/articleScreen');
                         }),
                       ),
+
+                      const Divider(
+                        color: Colors.white70,
+                      ),
+                      // buildMenuItem(
+                      //   text: "Settings",
+                      //   icon: Icons.settings,
+                      //   onClicked: () => setState(() {
+                      //     Navigator.of(context).pop();
+                      //     index = 6;
+                      //   }),
+                      // ),
                       buildMenuItem(
                         text: "About",
                         icon: Icons.info_outline,
                         onClicked: () => setState(() {
                           Navigator.pushNamed(context, '/aboutScreen');
-                        }),
-                      ),
-                      const Divider(
-                        color: Colors.white70,
-                      ),
-                      buildMenuItem(
-                        text: "Settings",
-                        icon: Icons.settings,
-                        onClicked: () => setState(() {
-                          Navigator.of(context).pop();
-                          index = 6;
                         }),
                       ),
                       buildMenuItem(
