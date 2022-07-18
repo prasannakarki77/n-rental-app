@@ -25,6 +25,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _addressController = TextEditingController();
   final _genderController = TextEditingController();
   final _usernameController = TextEditingController();
+  final _oldPasswordController = TextEditingController();
+  final _newPasswordController = TextEditingController();
   String? gender;
 
   _updateProfile(User user) async {
@@ -355,7 +357,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.circular(10), // <-- Radius
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              _changePasswordForm(context);
+            },
             icon: const Icon(Icons.key_rounded),
             label: const Text(
               'Change Password',
@@ -622,7 +626,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     // Expanded(
                     //   child: Row(
@@ -743,6 +747,142 @@ class _ProfileScreenState extends State<ProfileScreen> {
           );
         });
       });
+
+  void _changePasswordForm(context) => showModalBottomSheet<void>(
+      backgroundColor: Colors.transparent,
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(builder: (BuildContext context, setState) {
+          return Container(
+            height: 300,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 243, 241, 241),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0)),
+            ),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.15),
+                            spreadRadius: 0,
+                            blurRadius: 5,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: TextFormField(
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 145, 142, 142)),
+                          controller: _oldPasswordController,
+                          decoration: const InputDecoration(
+                            fillColor: Color.fromARGB(255, 116, 114, 114),
+                            border: InputBorder.none,
+                            hintText: "Old Password",
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 145, 142, 142),
+                            ),
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Icon(Icons.key),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.15),
+                            spreadRadius: 0,
+                            blurRadius: 5,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: TextFormField(
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 145, 142, 142)),
+                          controller: _newPasswordController,
+                          decoration: const InputDecoration(
+                            fillColor: Color.fromARGB(255, 116, 114, 114),
+                            border: InputBorder.none,
+                            hintText: "New Password",
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 145, 142, 142),
+                            ),
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Icon(Icons.key),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      width: 350,
+                      height: 40,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(10), // <-- Radius
+                          ),
+                        ),
+                        onPressed: () {},
+                        icon: const Icon(Icons.key_rounded),
+                        label: const Text(
+                          'Change Password',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+      });
+
   Widget photoPopup() => SizedBox(
         height: 150,
         child: Column(
