@@ -18,6 +18,7 @@ import 'package:nrental/wearos_screen/wearos_dashboard_screen.dart';
 import 'package:nrental/wearos_screen/wearos_favourite_screen.dart';
 import 'package:nrental/wearos_screen/wearos_login_screen.dart';
 import 'package:nrental/wearos_screen/wearos_profile_screen.dart';
+import 'package:nrental/wearos_screen/wearos_vehicle_detail_screen.dart';
 import 'package:nrental/wearos_screen/wearos_vehicle_screen.dart';
 import 'screen/register_screen.dart';
 
@@ -69,6 +70,8 @@ void main() {
         '/wearosBookingScreen': (context) => const WearOSBookingScreen(),
         '/wearosFavouriteScreen': (context) => const WearOSFavouriteScreen(),
         '/wearosVehicleScreen': (context) => const WearOSVehicleScreen(),
+        '/wearosVehicleDetailScreen': (context) =>
+            const WearOSVehicleDetailScreen(),
       },
     ),
   );

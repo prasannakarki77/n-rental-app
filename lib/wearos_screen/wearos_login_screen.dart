@@ -25,8 +25,8 @@ class _WearOSLoginScreenState extends State<WearOSLoginScreen> {
           fontSize: 10,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.transparent,
-          textColor: Colors.black,
+          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+          textColor: const Color.fromARGB(255, 255, 255, 255),
         );
       }
     }

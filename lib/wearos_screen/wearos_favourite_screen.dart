@@ -29,8 +29,8 @@ class _WearOSFavouriteScreenState extends State<WearOSFavouriteScreen> {
       fontSize: 10,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.transparent,
-      textColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+      textColor: const Color.fromARGB(255, 255, 255, 255),
     );
   }
 
@@ -99,20 +99,20 @@ class _WearOSFavouriteScreenState extends State<WearOSFavouriteScreen> {
           Align(
             alignment: Alignment.topRight,
             child: Padding(
-                padding: const EdgeInsets.all(1),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.bookmark_remove,
-                    color: Colors.red,
-                    size: 18,
-                  ),
-                  tooltip: 'Increase volume by 10',
-                  onPressed: () {
-                    setState(() {
-                      _deleteFavourite(favourite.id);
-                    });
-                  },
-                )),
+              padding: const EdgeInsets.all(1),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.bookmark_remove,
+                  color: Colors.red,
+                  size: 18,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _deleteFavourite(favourite.id);
+                  });
+                },
+              ),
+            ),
           ),
           SizedBox(
             width: double.infinity,
