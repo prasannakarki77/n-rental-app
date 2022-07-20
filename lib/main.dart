@@ -13,9 +13,12 @@ import 'package:nrental/screen/profile_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
 import 'package:nrental/screen/testScreen.dart';
 import 'package:nrental/screen/vehicle_screen.dart';
+import 'package:nrental/wearos_screen/wearos_booking_screen.dart';
 import 'package:nrental/wearos_screen/wearos_dashboard_screen.dart';
+import 'package:nrental/wearos_screen/wearos_favourite_screen.dart';
 import 'package:nrental/wearos_screen/wearos_login_screen.dart';
 import 'package:nrental/wearos_screen/wearos_profile_screen.dart';
+import 'package:nrental/wearos_screen/wearos_vehicle_screen.dart';
 import 'screen/register_screen.dart';
 
 void main() {
@@ -48,8 +51,6 @@ void main() {
       routes: {
         // '/': (context) => const SplashScreen(),
         '/': (context) => const WearOSLoginScreen(),
-        '/wearosDashboardScreen': (context) => const WearOSDashboardScreen(),
-        '/wearosProfileScreen': (context) => const WearOSProfileScreen(),
         '/registerScreen': (context) => const RegisterScreen(),
         '/loginScreen': (context) => const LoginScreen(),
         '/dashboardScreen': (context) => const DashboardScreen(),
@@ -63,6 +64,11 @@ void main() {
         '/articleScreen': (context) => const ArticleScreen(),
         '/articleDetailsScreen': (context) => const ArticleDetailsScreen(),
         '/favouriteScreen': (context) => const FavouriteScreen(),
+        '/wearosDashboardScreen': (context) => const WearOSDashboardScreen(),
+        '/wearosProfileScreen': (context) => const WearOSProfileScreen(),
+        '/wearosBookingScreen': (context) => const WearOSBookingScreen(),
+        '/wearosFavouriteScreen': (context) => const WearOSFavouriteScreen(),
+        '/wearosVehicleScreen': (context) => const WearOSVehicleScreen(),
       },
     ),
   );
