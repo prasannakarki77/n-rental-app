@@ -76,7 +76,10 @@ class _WearOSDashboardScreenState extends State<WearOSDashboardScreen> {
                                     BorderRadius.circular(10), // <-- Radius
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, '/wearosProfileScreen');
+                            },
                           ),
                         ),
                         const SizedBox(
