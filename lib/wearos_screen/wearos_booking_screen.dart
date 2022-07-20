@@ -77,7 +77,7 @@ class _WearOSBookingScreenState extends State<WearOSBookingScreen> {
             width: double.infinity,
             child: Image.network(
               '$baseUrl${booking.vehicle_id.vehicle_image}',
-              height: 50,
+              height: 80,
               fit: BoxFit.contain,
             ),
           ),
@@ -91,11 +91,11 @@ class _WearOSBookingScreenState extends State<WearOSBookingScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: Text(
-                    "Vehicle: ${booking.vehicle_id.vehicle_name}",
+                    "${booking.vehicle_id.vehicle_name}",
                     style: const TextStyle(
-                        fontSize: 10,
+                        fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 98, 95, 95)),
+                        color: Color.fromARGB(255, 0, 0, 0)),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -113,7 +113,7 @@ class _WearOSBookingScreenState extends State<WearOSBookingScreen> {
                   child: Text(
                     "Description: ${booking.vehicle_id.vehicle_desc}",
                     style: const TextStyle(
-                      fontSize: 8,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 126, 125, 125),
                     ),
@@ -128,7 +128,7 @@ class _WearOSBookingScreenState extends State<WearOSBookingScreen> {
                   child: Text(
                     "Booking Cost: Rs ${booking.vehicle_id.booking_cost}/day",
                     style: const TextStyle(
-                      fontSize: 8,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 126, 125, 125),
                     ),
@@ -143,7 +143,7 @@ class _WearOSBookingScreenState extends State<WearOSBookingScreen> {
                   child: Text(
                     "No of Days: ${booking.no_of_days}",
                     style: const TextStyle(
-                      fontSize: 8,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 126, 125, 125),
                     ),
@@ -158,7 +158,7 @@ class _WearOSBookingScreenState extends State<WearOSBookingScreen> {
                   child: Text(
                     "Date and Time: ${booking.booking_date}, ${booking.booking_time}",
                     style: const TextStyle(
-                      fontSize: 8,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 126, 125, 125),
                     ),
@@ -173,7 +173,7 @@ class _WearOSBookingScreenState extends State<WearOSBookingScreen> {
                   child: Text(
                     "Contact No: ${booking.contact_no}",
                     style: const TextStyle(
-                      fontSize: 8,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 126, 125, 125),
                     ),
@@ -188,7 +188,7 @@ class _WearOSBookingScreenState extends State<WearOSBookingScreen> {
                   child: Text(
                     "Address: ${booking.address}",
                     style: const TextStyle(
-                      fontSize: 8,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 126, 125, 125),
                     ),
@@ -203,7 +203,7 @@ class _WearOSBookingScreenState extends State<WearOSBookingScreen> {
                   child: Text(
                     "Status: ${booking.status}",
                     style: const TextStyle(
-                      fontSize: 8,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 126, 125, 125),
                     ),

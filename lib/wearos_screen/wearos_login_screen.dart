@@ -22,6 +22,7 @@ class _WearOSLoginScreenState extends State<WearOSLoginScreen> {
       } else {
         Fluttertoast.showToast(
           msg: "Incorrect Username or password",
+          fontSize: 10,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Colors.transparent,
