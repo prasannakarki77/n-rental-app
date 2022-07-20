@@ -398,6 +398,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return InkWell(
       onTap: () => setState(() {
         _iconClicked("$vehicleType");
+        
       }),
       child: AnimatedContainer(
         height: 70,

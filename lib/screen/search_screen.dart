@@ -142,7 +142,8 @@ class _SearchScreenState extends State<SearchScreen> {
               width: 100,
               child: TextButton(
                 style: TextButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 14),
+                  textStyle: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
                   setState(() {

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nrental/model/booking_vehicle.dart';
@@ -98,7 +100,6 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
 //       _displayMessage(false);
 //     }
 //   }
-
   @override
   Widget build(BuildContext context) {
     String bookingId = ModalRoute.of(context)!.settings.arguments as String;
@@ -115,8 +116,6 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     BookingVehicle bookingDetails = snapshot.data!.data!;
-                    print(bookingDetails);
-                    print(bookingDetails);
                     return (_bookingDetails(bookingDetails));
                   } else {
                     return const Text("No data");

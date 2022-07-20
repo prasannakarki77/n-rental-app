@@ -41,7 +41,7 @@ class UserApi {
     try {
       response = await dio
           .post(url, data: {"username": username, "password": password});
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         LoginResponse loginResponse = LoginResponse.fromJson(response.data);
         token = loginResponse.token;
         _setDataToSharedPref(token!);

@@ -11,10 +11,10 @@ import 'package:nrental/screen/favourite_screen.dart';
 import 'package:nrental/screen/login_screen.dart';
 import 'package:nrental/screen/profile_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
-import 'package:nrental/screen/splash_screen.dart';
 import 'package:nrental/screen/testScreen.dart';
 import 'package:nrental/screen/vehicle_screen.dart';
 import 'package:nrental/wearos_screen/wearos_dashboard_screen.dart';
+import 'package:nrental/wearos_screen/wearos_login_screen.dart';
 import 'screen/register_screen.dart';
 
 void main() {
@@ -45,8 +45,8 @@ void main() {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const SplashScreen(),
-        // '/': (context) => const WearOSLoginScreen(),
+        // '/': (context) => const SplashScreen(),
+        '/': (context) => const WearOSLoginScreen(),
         '/wearosDashboardScreen': (context) => const WearOSDashboardScreen(),
         '/registerScreen': (context) => const RegisterScreen(),
         '/loginScreen': (context) => const LoginScreen(),
