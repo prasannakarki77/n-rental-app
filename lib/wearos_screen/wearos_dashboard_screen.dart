@@ -90,6 +90,38 @@ class _WearOSDashboardScreenState extends State<WearOSDashboardScreen> {
                           width: double.infinity,
                           child: ElevatedButton.icon(
                             label: const Text(
+                              'Vehicles',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                              ),
+                            ),
+                            icon: const Icon(
+                              Icons.drive_eta,
+                              size: 20,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color.fromARGB(255, 170, 62, 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10), // <-- Radius
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, '/wearosVehicleScreen');
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 40,
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            label: const Text(
                               'Bookings',
                               style: TextStyle(
                                 fontSize: 14,
@@ -143,38 +175,6 @@ class _WearOSDashboardScreenState extends State<WearOSDashboardScreen> {
                             onPressed: () {
                               Navigator.pushNamed(
                                   context, '/wearosFavouriteScreen');
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        SizedBox(
-                          height: 40,
-                          width: double.infinity,
-                          child: ElevatedButton.icon(
-                            label: const Text(
-                              'Vehicles',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.white,
-                              ),
-                            ),
-                            icon: const Icon(
-                              Icons.drive_eta,
-                              size: 20,
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              primary: const Color.fromARGB(255, 170, 62, 15),
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(10), // <-- Radius
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, '/wearosVehicleScreen');
                             },
                           ),
                         ),
