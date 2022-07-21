@@ -19,7 +19,6 @@ class ReviewApi {
           options: Options(headers: {
             HttpHeaders.authorizationHeader: "Bearer $token",
           }));
-      print(response);
       if (response.statusCode == 201) {
         return true;
       }
@@ -38,12 +37,8 @@ class ReviewApi {
       Response response = await dio.get(
         getReviewUrl + vehicleId,
       );
-      print("rev res");
-      print(response);
-      print(response.statusCode);
       if (response.statusCode == 201) {
         reviewResponse = ReviewResponse.fromJson(response.data);
-        print(reviewResponse.data);
       } else {
         reviewResponse = null;
       }
