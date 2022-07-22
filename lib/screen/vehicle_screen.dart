@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:all_sensors2/all_sensors2.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:nrental/model/booking.dart';
@@ -52,28 +55,28 @@ class _VehicleScreenState extends State<VehicleScreen> {
   _bookVehicle(Booking booking, vehicleId, vehicleName) async {
     bool isBooked = await BookingRepository().addBooking(booking, vehicleId);
     if (isBooked) {
-      _displayMessage(true);
+      _displayMessage(true, "$vehicleName booked successfully!");
       _showNotification(
           vehicleName!, booking.booking_date!, booking.booking_time!);
     } else {
-      _displayMessage(false);
+      _displayMessage(false, "$vehicleName booking failed!!");
     }
   }
 
   _addFavourite(vehicleId) async {
     bool isAdded = await FavouriteRepository().addFavourite(vehicleId);
     if (isAdded) {
-      _displayMessage(true);
+      _displayMessage(true, "Added to favourite!");
     } else {
-      _displayMessage(false);
+      _displayMessage(false, "Failed to add favourite!!");
     }
   }
 
-  _displayMessage(bool isBooked) {
-    if (isBooked) {
-      displaySuccessMessage(context, "Booking success");
+  _displayMessage(bool success, String message) {
+    if (success) {
+      displaySuccessMessage(context, message);
     } else {
-      displayErrorMessage(context, "Booking Failed");
+      displayErrorMessage(context, message);
     }
   }
 
@@ -91,9 +94,19 @@ class _VehicleScreenState extends State<VehicleScreen> {
     });
   }
 
+  double _proximityValue = 0;
+  final List<StreamSubscription<dynamic>> _streamSubscriptions =
+      <StreamSubscription<dynamic>>[];
+
   @override
   void initState() {
     _checkNotificationEnabled();
+    _streamSubscriptions.add(proximityEvents!.listen((ProximityEvent event) {
+      _proximityValue = event.proximity;
+      if (_proximityValue <= 1) {
+        Navigator.pushReplacementNamed(context, '/dashboardScreen');
+      }
+    }));
     super.initState();
   }
 
@@ -627,4 +640,13 @@ class _VehicleScreenState extends State<VehicleScreen> {
           ],
         ),
       );
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    for (final subscription in _streamSubscriptions) {
+      subscription.cancel();
+    }
+    super.dispose();
+  }
 }

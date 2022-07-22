@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:all_sensors2/all_sensors2.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nrental/model/booking_vehicle.dart';
@@ -32,6 +34,16 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
 
   final _reviewController = TextEditingController();
   String? ratingValue;
+  int counter = 1;
+  _checkNotificationEnabled() {
+    AwesomeNotifications().isNotificationAllowed().then(
+      (isaAllowed) {
+        if (!isaAllowed) {
+          AwesomeNotifications().requestPermissionToSendNotifications();
+        }
+      },
+    );
+  }
 
   _dateSelected() {
     _dateController.text =
@@ -42,16 +54,17 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
     _timeController.text = "${time.hour}: ${time.minute}";
   }
 
-  _deleteBooking(bookingId) async {
+  _deleteBooking(bookingId, vehicleName) async {
     bool isDeleted = await BookingRepository().deleteBooking(bookingId);
     if (isDeleted) {
       setState(() {
         Navigator.pushNamed(context, '/dashboardScreen');
       });
-      _displayMessage(true);
+      _showNotification(vehicleName, "booking has been cancelled.", "Cancelled");
+      _displayMessage(true, "Booking Cancelled");
     } else {
       Navigator.pop(context, 'ok');
-      _displayMessage(false);
+      _displayMessage(false, "Cancellation Failed");
     }
   }
 
@@ -59,9 +72,9 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
     bool isUpdated =
         await BookingRepository().updateBooking(booking, bookingId);
     if (isUpdated) {
-      _displayMessage(true);
+      _displayMessage(true, "Updated Successfully!");
     } else {
-      _displayMessage(false);
+      _displayMessage(false, "Update Failed !!");
     }
   }
 
@@ -69,18 +82,18 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
     bool success = await ReviewRepository().addReview(review, vehicleId);
     Navigator.pop(context, 'Yes');
     if (success) {
-      _displayMessage(true);
+      _displayMessage(true, "Review added successfully!");
     } else {
-      _displayMessage(false);
+      _displayMessage(false, "Failed to add review!!");
     }
   }
 
-  _displayMessage(bool isDeleted) {
-    if (isDeleted) {
-      displaySuccessMessage(context, "Booking canceled");
+  _displayMessage(bool success, String message) {
+    if (success) {
+      displaySuccessMessage(context, message);
       setState(() {});
     } else {
-      displayErrorMessage(context, "Booking Cancellation Failed");
+      displayErrorMessage(context, message);
     }
   }
 
@@ -100,6 +113,36 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
 //       _displayMessage(false);
 //     }
 //   }
+  _showNotification(String vehicle, String message, String type) {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: counter,
+        channelKey: 'basic_channel',
+        title: "$vehicle $type",
+        body: '$vehicle $message',
+      ),
+    );
+    setState(() {
+      counter++;
+    });
+  }
+
+  double _proximityValue = 0;
+  final List<StreamSubscription<dynamic>> _streamSubscriptions =
+      <StreamSubscription<dynamic>>[];
+
+  @override
+  void initState() {
+    _checkNotificationEnabled();
+    _streamSubscriptions.add(proximityEvents!.listen((ProximityEvent event) {
+      _proximityValue = event.proximity;
+      if (_proximityValue <= 1) {
+        Navigator.pushReplacementNamed(context, '/dashboardScreen');
+      }
+    }));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     String bookingId = ModalRoute.of(context)!.settings.arguments as String;
@@ -218,7 +261,8 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                         ),
                       ),
                       onPressed: () {
-                        _showCancelBookingDialog(booking.id);
+                        _showCancelBookingDialog(
+                            booking.id, booking.vehicle_id.vehicle_name);
                       },
                     ),
                   ),
@@ -712,7 +756,8 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
         },
       );
 
-  Future<Future<String?>> _showCancelBookingDialog(bookingId) async {
+  Future<Future<String?>> _showCancelBookingDialog(
+      bookingId, vehicleName) async {
     return showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -722,7 +767,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
-                    _deleteBooking(bookingId);
+                    _deleteBooking(bookingId, vehicleName);
                   },
                   child: const Text('Yes'),
                 ),
@@ -829,5 +874,14 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                 ),
               ],
             ));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    for (final subscription in _streamSubscriptions) {
+      subscription.cancel();
+    }
+    super.dispose();
   }
 }

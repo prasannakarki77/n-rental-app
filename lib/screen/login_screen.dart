@@ -133,7 +133,7 @@ class _LoginScreemState extends State<LoginScreen> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                     key: const ValueKey('signInBtn'),
+                    key: const ValueKey('signInBtn'),
                     child: const Text(
                       'Sign In',
                       style: TextStyle(
@@ -170,7 +170,6 @@ class _LoginScreemState extends State<LoginScreen> {
                     SizedBox(
                       height: 40,
                       child: ElevatedButton(
-                             key: const ValueKey('signUpBtn'),
                         child: const Text(
                           'Sign Up',
                           style: TextStyle(

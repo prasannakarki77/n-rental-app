@@ -8,6 +8,7 @@ import 'package:nrental/screen/favourite_screen.dart';
 import 'package:nrental/screen/home_screen.dart';
 import 'package:nrental/screen/profile_screen.dart';
 import 'package:nrental/screen/search_screen.dart';
+import 'package:shake/shake.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/custom_shape.dart';
@@ -48,6 +49,29 @@ class _DashboardScreemState extends State<DashboardScreen> {
       Navigator.pushNamed(context, '/');
     });
   }
+
+  @override
+  void initState() {
+    ShakeDetector.autoStart(onPhoneShake: () {
+      _logoutUser();
+    });
+    super.initState();
+  }
+
+  // List<double> _accelerometerValues = <double>[];
+  // final List<StreamSubscription<dynamic>> _streamSubscription =
+  //     <StreamSubscription<dynamic>>[];
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   _streamSubscription
+  //       .add(accelerometerEvents!.listen((AccelerometerEvent event) {
+  //     _accelerometerValues = <double>[event.x, event.y, event.z];
+  //     print(_accelerometerValues);
+  //   }));
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -310,5 +334,14 @@ class _DashboardScreemState extends State<DashboardScreen> {
 
   //       break;
   //   }
+  // }
+
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   for (final subscription in _streamSubscription) {
+  //     subscription.cancel();
+  //   }
+  //   super.dispose();
   // }
 }

@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:all_sensors2/all_sensors2.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nrental/utils/show_message.dart';
@@ -105,6 +107,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _displayMessage(isUpdated);
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -956,4 +960,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       );
+
 }

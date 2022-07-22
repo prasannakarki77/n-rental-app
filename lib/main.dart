@@ -24,6 +24,7 @@ import 'package:nrental/wearos_screen/wearos_vehicle_screen.dart';
 import 'screen/register_screen.dart';
 
 void main() {
+  
   AwesomeNotifications().initialize(
     'resource://drawable/launcher',
     [
