@@ -1,5 +1,5 @@
-// const baseUrl = "http://10.0.2.2:90/"; // emulator
-const baseUrl = "http://localhost:90/"; // testing
+const baseUrl = "http://10.0.2.2:90/"; // emulator
+// const baseUrl = "http://localhost:90/"; // testing
 // const baseUrl = "http://192.168.101.2:90/";    // physical device
 
 const loginUrl = "user/login";

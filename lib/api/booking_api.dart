@@ -58,7 +58,6 @@ class BookingAPI {
           options: Options(headers: {
             HttpHeaders.authorizationHeader: "Bearer $token",
           }));
-      print(response);
       if (response.statusCode == 201) {
         return true;
       }

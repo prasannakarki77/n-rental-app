@@ -133,6 +133,7 @@ class _LoginScreemState extends State<LoginScreen> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
+                     key: const ValueKey('signInBtn'),
                     child: const Text(
                       'Sign In',
                       style: TextStyle(
@@ -169,6 +170,7 @@ class _LoginScreemState extends State<LoginScreen> {
                     SizedBox(
                       height: 40,
                       child: ElevatedButton(
+                             key: const ValueKey('signUpBtn'),
                         child: const Text(
                           'Sign Up',
                           style: TextStyle(
@@ -202,6 +204,7 @@ class _LoginScreemState extends State<LoginScreen> {
   }
 
   Widget usernameField() => TextFormField(
+        key: const ValueKey('username'),
         controller: _usernameController,
         style: const TextStyle(
           fontSize: 18,
@@ -240,6 +243,7 @@ class _LoginScreemState extends State<LoginScreen> {
       );
 
   Widget passwordField() => TextFormField(
+        key: const ValueKey('password'),
         controller: _passwordController,
         style: const TextStyle(
           fontSize: 18,

@@ -498,7 +498,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(
               width: 80,
+               key: const ValueKey('bookBtn'),
               child: ElevatedButton(
+               
                 style: ElevatedButton.styleFrom(
                   primary: const Color.fromRGBO(255, 114, 94, 1),
                   shape: RoundedRectangleBorder(

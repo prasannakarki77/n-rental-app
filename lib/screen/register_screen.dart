@@ -144,6 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
+                    key: const ValueKey('signUpBtn'),
                     child: const Text(
                       'Sign Up',
                       style: TextStyle(
@@ -219,6 +220,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget usernameField() => TextFormField(
+        key: const ValueKey('username'),
         controller: _usernameController,
         style: const TextStyle(
           fontSize: 18,
@@ -263,6 +265,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
 
   Widget emailField() => TextFormField(
+        key: const ValueKey('email'),
         keyboardType: TextInputType.emailAddress,
         controller: _emailController,
         style: const TextStyle(
@@ -302,6 +305,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
 
   Widget phoneNoField() => TextFormField(
+        key: const ValueKey('phone'),
         keyboardType: TextInputType.number,
         controller: _phoneNoController,
         style: const TextStyle(
@@ -341,6 +345,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
 
   Widget passwordField() => TextFormField(
+        key: const ValueKey('password'),
         controller: _passwordController,
         style: const TextStyle(
           fontSize: 18,

@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:all_sensors2/all_sensors2.dart';
 import 'package:flutter/material.dart';
 import "package:curved_navigation_bar/curved_navigation_bar.dart";
 import 'package:nrental/model/user.dart';
@@ -28,7 +25,6 @@ class _DashboardScreemState extends State<DashboardScreen> {
   final navigationKey = GlobalKey<CurvedNavigationBarState>();
   int index = 2;
 
- 
   // int screenIndex =
   final screens = const [
     ProfileScreen(),
@@ -53,7 +49,6 @@ class _DashboardScreemState extends State<DashboardScreen> {
     });
   }
 
-  
   @override
   Widget build(BuildContext context) {
     final items = <Widget>[

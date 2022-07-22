@@ -49,6 +49,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   curved_navigation_bar: ^1.0.3
   build_runner: ^2.1.10
 
