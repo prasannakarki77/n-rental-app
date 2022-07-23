@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:nrental/api/http_services.dart';
 import 'package:nrental/model/booking.dart';
 import 'package:nrental/response/booking_details_response.dart';
@@ -75,11 +76,15 @@ class BookingAPI {
       prefs.getString("token");
       String? token = prefs.getString("token");
       var dio = HttpServices().getDioInstance();
-
+      dio.interceptors
+          .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(getBookingUrl,
-          options: Options(headers: {
-            HttpHeaders.authorizationHeader: "Bearer $token",
-          }));
+          options: buildCacheOptions(const Duration(days: 7),
+              options: Options(
+                headers: {
+                  HttpHeaders.authorizationHeader: "Bearer $token",
+                },
+              )));
       if (response.statusCode == 201) {
         bookingVehicleResponse = BookingVehicleResponse.fromJson(response.data);
       } else {
@@ -99,11 +104,15 @@ class BookingAPI {
       prefs.getString("token");
       String? token = prefs.getString("token");
       var dio = HttpServices().getDioInstance();
-
+      dio.interceptors
+          .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(getBookingDetailsUrl + bookingId,
-          options: Options(headers: {
-            HttpHeaders.authorizationHeader: "Bearer $token",
-          }));
+          options: buildCacheOptions(const Duration(days: 7),
+              options: Options(
+                headers: {
+                  HttpHeaders.authorizationHeader: "Bearer $token",
+                },
+              )));
       if (response.statusCode == 201) {
         bookingDetailsResponse = BookingDetailsResponse.fromJson(response.data);
         print("booo");

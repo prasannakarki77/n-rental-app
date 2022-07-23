@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:nrental/api/http_services.dart';
 import 'package:nrental/response/review_response.dart';
 import 'package:nrental/utils/url.dart';
@@ -33,9 +34,11 @@ class ReviewApi {
     ReviewResponse? reviewResponse;
     try {
       var dio = HttpServices().getDioInstance();
-
+      dio.interceptors
+          .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(
         getReviewUrl + vehicleId,
+        options: buildCacheOptions(const Duration(days: 7)),
       );
       if (response.statusCode == 201) {
         reviewResponse = ReviewResponse.fromJson(response.data);

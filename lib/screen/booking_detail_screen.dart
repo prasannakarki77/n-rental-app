@@ -878,7 +878,6 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     for (final subscription in _streamSubscriptions) {
       subscription.cancel();
     }

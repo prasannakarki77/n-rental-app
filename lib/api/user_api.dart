@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mime/mime.dart';
 import 'package:nrental/api/http_services.dart';
@@ -67,10 +68,15 @@ class UserApi {
       prefs.getString("token");
       String? token = prefs.getString("token");
       var dio = HttpServices().getDioInstance();
+      dio.interceptors
+          .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(getUserUrl,
-          options: Options(headers: {
-            HttpHeaders.authorizationHeader: "Bearer $token",
-          }));
+          options: buildCacheOptions(const Duration(days: 7),
+              options: Options(
+                headers: {
+                  HttpHeaders.authorizationHeader: "Bearer $token",
+                },
+              )));
       if (response.statusCode == 201) {
         userResponse = UserResponse.fromJson(response.data);
       } else {
