@@ -80,7 +80,7 @@ class _DashboardScreemState extends State<DashboardScreen> {
         Icons.person,
         size: 30,
       ),
-      const Icon(
+       const Icon(
         Icons.search,
         size: 30,
       ),

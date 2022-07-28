@@ -366,7 +366,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   final article = lstArticles[index];
-                                  return articleCard(article);
+                                  return Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 20.0),
+                                      child: articleCard(article));
                                 });
                           } else {
                             return const Center(
@@ -560,7 +563,9 @@ class _HomeScreenState extends State<HomeScreen> {
             width: double.infinity,
             child: Image.network(
               '$baseUrl${article.image}',
-              height: 190,
+              // height: 190,
+              height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width * 0.5,
               fit: BoxFit.cover,
             ),
           ),

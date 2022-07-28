@@ -80,6 +80,7 @@ class BookingAPI {
           .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(getBookingUrl,
           options: buildCacheOptions(const Duration(days: 7),
+              forceRefresh: true,
               options: Options(
                 headers: {
                   HttpHeaders.authorizationHeader: "Bearer $token",

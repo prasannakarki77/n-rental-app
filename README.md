@@ -17,7 +17,7 @@ N-Rental is a vehicle rental service providing android application. It allows us
 
 ### Technologies Used
 
-- [Flutter](https://flutter.dev/)
+- [Flutter](https://flutter.dev/):
   It is a software development kit used to develop cross platform applications. It is used to build and design N-Rental android application. Since, flutter with a single code base, has many useful packages, UI components, hot reload functionality, it has faster code development time which makes it perfect for this project.
 
   dependencies:
@@ -52,13 +52,13 @@ N-Rental is a vehicle rental service providing android application. It allows us
   - build_runner: ^2.1.10
   - flutter_lints: ^1.0.0
 
-- [NodeJS](https://nodejs.org/en/)
+- [NodeJS](https://nodejs.org/en/):
   It is an opensource development platform for executing JavaScript code server-side. It is used to built REST API for N-Rental. It is very lightweight, fast and scalable which can be beneficial for future works on the app
 
-- [ExpressJS](https://expressjs.com/)
+- [ExpressJS](https://expressjs.com/):
   It is a nodejs web application framework that provides broad features for building web and mobile applications. It's a layer built on the top of the NodeJS that helps manage servers and routes for faster server-side development
 
-- [MongoDB](https://www.mongodb.com/)
+- [MongoDB](https://www.mongodb.com/):
   It is a document-oriented NoSQL that stores data as collections and documents consisting of key-value pairs. It is schema-less, flexible, scalable and has dynamic data.
 
 ### Project Challenges
@@ -71,11 +71,33 @@ To make N-Rental more effective in providing easy vehicle renting service to use
 
 ## Project Architecture
 
-![MVVM design pattern](/assets/images/mvvm.jpg)
+<p align="center" ><img  src="assets/images/mvvm.jpg" width="100%"  style="object-fit:contain;"></p>
 
 In this project, MVVM (Model View ViewModel) design pattern is implemented. The MVVM architecture in flutter provides uniform distribution of data with benefits of flexibility and reusability of the code. In this design pattern, the “View Model” is in the center which receives data form the model and provides it to the view. It makes the Model hold the data and view part holds the formatted data with the controller as an interface between them. The “Model” represents the actual data, and the “View” represents the interactive user interface of the application. The MVVM architecture solves a tight coupling issue and ensures easy testability, code sharing and usability in N-Rental application.
 
 ## Appendix
+
+### Smartphone Sized Screens
+
+<p class="text-center" align="center">
+<img  src="assets/images/login.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/register.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/home-1.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/drawer.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/home2.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/home3.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/profile-1.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/profile2.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/profile3.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/about.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/articles.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/articles1.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/search-1.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/search2.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/vehicle2.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/vehicle3.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/vehicle3.png"  width="500" height="700" style="object-fit:contain;">
+</p>
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
