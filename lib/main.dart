@@ -52,8 +52,8 @@ void main() {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const SplashScreen(),
-        // '/': (context) => const WearOSLoginScreen(),
+        // '/': (context) => const SplashScreen(),
+        '/': (context) => const WearOSLoginScreen(),
         '/registerScreen': (context) => const RegisterScreen(),
         '/loginScreen': (context) => const LoginScreen(),
         '/dashboardScreen': (context) => const DashboardScreen(),

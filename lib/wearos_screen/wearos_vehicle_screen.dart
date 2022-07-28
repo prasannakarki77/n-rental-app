@@ -16,7 +16,7 @@ class _WearOSVehicleScreenState extends State<WearOSVehicleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile",
+        title: const Text("Vehicles",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         toolbarHeight: 40,
       ),

@@ -77,31 +77,53 @@ In this project, MVVM (Model View ViewModel) design pattern is implemented. The 
 
 ## Appendix
 
-### Smartphone Sized Screens
+### Smartphone Screens
 
 <p class="text-center" align="center">
-<img  src="assets/images/login.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/register.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/home-1.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/drawer.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/home2.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/home3.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/profile-1.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/profile2.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/profile3.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/about.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/articles.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/articles1.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/search-1.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/search2.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/vehicle2.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/vehicle3.png"  width="500" height="700" style="object-fit:contain;">
-<img  src="assets/images/vehicle3.png"  width="500" height="700" style="object-fit:contain;">
+<img  src="assets/images/login.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/register.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/home-1.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/drawer.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/home2.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/home3.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/profile-1.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/profileimage.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/profile2.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/profile3.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/about.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/articles.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/articles1.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/favourite.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/search-1.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/search2.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/vehicle2.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/review.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/booking5.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/bookingdate.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/bookingtime.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/bookings1.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/bookings2.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/bookingupdate.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/bookingcancel.png"  width="300"  style="object-fit:contain; margin:10px;">
+<img  src="assets/images/bookingrev.png"  width="300"  style="object-fit:contain; margin:10px;">
 </p>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### WearOS Screens
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p class="text-center" align="center">
+<img  src="assets/images/wearosLogin.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/wearosDashboard.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/wearosDashboard2.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/wearosProfile.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/wearosprofile2.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/wearosvehicle.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/wearosvwhicle2.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/wearosFav.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/wearosFav2.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/wearosBooking.png"  width="300" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/wearosBooking2.png"  width="300" style="object-fit:contain; margin:10px;">
+</p>
+
+## Conclusion
+
+N-Rental project is developed with the idea of making travelling easier and comfortable. It provides rental service for various kinds of vehicle which can be booked through the application. To make the application more attractive and user-friendly various additional features are also present in the application. Using a cross-platform software development kit like flutter (with NodeJS, ExpressJS and mongo dB as backend) for android application development makes it easier to implement the prototype design to code. Through the implementation of agile scrum development methodology and MVVM design pattern, the final N-Rental android application is created and deployed.

@@ -38,7 +38,7 @@ class ReviewApi {
           .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(
         getReviewUrl + vehicleId,
-        options: buildCacheOptions(const Duration(days: 7)),
+        options: buildCacheOptions(const Duration(days: 7), forceRefresh: true),
       );
       if (response.statusCode == 201) {
         reviewResponse = ReviewResponse.fromJson(response.data);
