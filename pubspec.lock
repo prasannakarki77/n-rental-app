@@ -191,7 +191,7 @@ packages:
     source: hosted
     version: "3.0.1"
   curved_navigation_bar:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: curved_navigation_bar
       url: "https://pub.dartlang.org"

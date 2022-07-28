@@ -152,244 +152,248 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              vehicleCategory(bgColorCar, carIcon, "car"),
-              vehicleCategory(bgColorBike, bikeIcon, "bike"),
-              vehicleCategory(bgColorVan, vanIcon, "van"),
-              vehicleCategory(bgColorBus, busIcon, "bus")
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(255, 233, 214, 1),
-                borderRadius: BorderRadius.circular(9),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color.fromRGBO(0, 0, 0, 0.25),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: Offset(0, 4),
-                  )
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.network(
-                      "https://www.picng.com/upload/tesla_car/png_tesla_car_23349.png",
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      width: MediaQuery.of(context).size.width * 0.5,
-                    ),
-                    Column(
-                      children: [
-                        const Text(
-                          "Rent a Tesla",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        const Text(
-                          "30% OFF",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: const Color.fromRGBO(255, 114, 94, 1),
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(10), // <-- Radius
-                            ),
-                          ),
-                          onPressed: () => {},
-                          child: const Text(
-                            "Book now",
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                vehicleCategory(bgColorCar, carIcon, "car"),
+                vehicleCategory(bgColorBike, bikeIcon, "bike"),
+                vehicleCategory(bgColorVan, vanIcon, "van"),
+                vehicleCategory(bgColorBus, busIcon, "bus")
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(255, 233, 214, 1),
+                  borderRadius: BorderRadius.circular(9),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.25),
+                      spreadRadius: 0,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    )
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.network(
+                        "https://www.picng.com/upload/tesla_car/png_tesla_car_23349.png",
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            "Rent a Tesla",
                             style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            "30% OFF",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color.fromRGBO(255, 114, 94, 1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10), // <-- Radius
+                              ),
+                            ),
+                            onPressed: () => {},
+                            child: const Text(
+                              "Book now",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: lstBrand.length,
+                  separatorBuilder: (context, _) => SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                  ),
+                  itemBuilder: (context, index) => brandCard(lstBrand[index]),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: const [
+                    Text(
+                      "Explore",
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.w900),
+                    ),
+                    Icon(
+                      Icons.play_arrow_rounded,
+                      size: 30,
                     )
                   ],
                 ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: lstBrand.length,
-                separatorBuilder: (context, _) => SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.2,
-                ),
-                itemBuilder: (context, index) => brandCard(lstBrand[index]),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: const [
-                  Text(
-                    "Explore",
-                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.w900),
-                  ),
-                  Icon(
-                    Icons.play_arrow_rounded,
-                    size: 30,
-                  )
-                ],
-              ),
-            ),
-          ),
-          FutureBuilder<VehicleResponse?>(
-            future: VehicleRepository().getFeaturedVehicles(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  List<Vehicle> lstVehicles = snapshot.data!.data!;
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 30,
-                      mainAxisExtent: 260,
-                      crossAxisSpacing: 20,
-                    ),
-                    padding: const EdgeInsets.all(8),
-                    itemCount: lstVehicles.length,
-                    itemBuilder: (context, index) {
-                      final vehicle = lstVehicles[index];
-                      return vehicleCard(vehicle);
-                    },
+            FutureBuilder<VehicleResponse?>(
+              future: VehicleRepository().getFeaturedVehicles(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    List<Vehicle> lstVehicles = snapshot.data!.data!;
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 30,
+                        mainAxisExtent: 260,
+                        crossAxisSpacing: 20,
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      itemCount: lstVehicles.length,
+                      itemBuilder: (context, index) {
+                        final vehicle = lstVehicles[index];
+                        return vehicleCard(vehicle);
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: Text("No Data"),
+                    );
+                  }
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
                 } else {
                   return const Center(
-                    child: Text("No Data"),
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    ),
                   );
                 }
-              } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                  ),
-                );
-              }
-            },
-          ),
-          Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Divider(
-                    color: Color.fromARGB(179, 123, 120, 120),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.my_library_books,
-                          size: 30,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Articles",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w900),
-                        ),
-                      ],
+              },
+            ),
+            Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  FutureBuilder<ArticleResponse?>(
-                    future: ArticleRepository().getFeaturedArticles(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasData) {
-                          List<Article> lstArticles = snapshot.data!.data!;
-                          return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: snapshot.data!.data!.length,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                final article = lstArticles[index];
-                                return articleCard(article);
-                              });
+                    const Divider(
+                      color: Color.fromARGB(179, 123, 120, 120),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: const [
+                          Icon(
+                            Icons.my_library_books,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Articles",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w900),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    FutureBuilder<ArticleResponse?>(
+                      future: ArticleRepository().getFeaturedArticles(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.hasData) {
+                            List<Article> lstArticles = snapshot.data!.data!;
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.data!.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  final article = lstArticles[index];
+                                  return articleCard(article);
+                                });
+                          } else {
+                            return const Center(
+                              child: Text("No data"),
+                            );
+                          }
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text("${snapshot.error}");
                         } else {
                           return const Center(
-                            child: Text("No data"),
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.blue),
+                            ),
                           );
                         }
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text("${snapshot.error}");
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.blue),
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                ],
-              )),
-        ],
+                      },
+                    ),
+                  ],
+                )),
+          ],
+        ),
       ),
     );
   }
@@ -398,7 +402,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return InkWell(
       onTap: () => setState(() {
         _iconClicked("$vehicleType");
-        
       }),
       child: AnimatedContainer(
         height: 70,
@@ -498,9 +501,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(
               width: 80,
-               key: const ValueKey('bookBtn'),
+              key: ValueKey('bookBtn ${vehicle.vehicle_name}'),
               child: ElevatedButton(
-               
                 style: ElevatedButton.styleFrom(
                   primary: const Color.fromRGBO(255, 114, 94, 1),
                   shape: RoundedRectangleBorder(

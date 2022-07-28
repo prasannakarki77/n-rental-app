@@ -74,11 +74,6 @@ class ArticleAPI {
           .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(featuredArticleUrl,
           options: buildCacheOptions(const Duration(days: 7)));
-      if (null != response.headers.value(DIO_CACHE_HEADER_KEY_DATA_SOURCE)) {
-        print(response.data);
-      } else {
-        print("no cache");
-      }
       if (response.statusCode == 201) {
         articleResponse = ArticleResponse.fromJson(response.data);
       } else {

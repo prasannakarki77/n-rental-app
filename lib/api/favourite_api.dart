@@ -40,6 +40,7 @@ class FavouriteApi {
           .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(getFavouriteUrl,
           options: buildCacheOptions(const Duration(days: 7),
+              forceRefresh: true,
               options: Options(
                 headers: {
                   HttpHeaders.authorizationHeader: "Bearer $token",

@@ -31,7 +31,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   _registerUser(User user) async {
     bool isRegister = await UserRepository().registerUser(user);
     if (isRegister) {
-      _displayMessage(true);
+      Navigator.pushNamed(context, '/loginScreen');
+      // _displayMessage(true);
     } else {
       _displayMessage(false);
     }

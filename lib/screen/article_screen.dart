@@ -145,6 +145,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: SizedBox(
+                    key: ValueKey('readMoreBtn ${article.title}'),
                     height: 50,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(

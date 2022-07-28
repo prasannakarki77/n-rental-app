@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:all_sensors2/all_sensors2.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nrental/utils/show_message.dart';
@@ -108,32 +107,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: FutureBuilder<UserResponse?>(
-            future: UserRepository().getUserData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  User userData = snapshot.data!.data!;
-                  print(userData);
-                  return (userProfileDetails(userData));
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: FutureBuilder<UserResponse?>(
+              future: UserRepository().getUserData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    User userData = snapshot.data!.data!;
+                    print(userData);
+                    return (userProfileDetails(userData));
+                  } else {
+                    return const Text("No data");
+                  }
                 } else {
-                  return const Text("No data");
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    ),
+                  );
                 }
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                  ),
-                );
-              }
-            }),
+              }),
+        ),
       ),
     );
   }
@@ -363,6 +362,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         SizedBox(
           width: 350,
           height: 40,
+          key: const ValueKey('updateFormBtn'),
           child: ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
               primary: Colors.green,
@@ -640,6 +640,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(4),
                         child: TextFormField(
+                          key: const ValueKey('addressText'),
                           style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -745,6 +746,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 20,
                     ),
                     SizedBox(
+                      key: const ValueKey('updateBtn'),
                       height: 50,
                       width: double.infinity,
                       child: ElevatedButton.icon(
@@ -960,5 +962,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       );
-
 }

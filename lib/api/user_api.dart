@@ -46,7 +46,6 @@ class UserApi {
         LoginResponse loginResponse = LoginResponse.fromJson(response.data);
         token = loginResponse.token;
         _setDataToSharedPref(token!);
-
         if (token == '') {
           isLogin = false;
         } else {
@@ -72,6 +71,7 @@ class UserApi {
           .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(getUserUrl,
           options: buildCacheOptions(const Duration(days: 7),
+              forceRefresh: true,
               options: Options(
                 headers: {
                   HttpHeaders.authorizationHeader: "Bearer $token",

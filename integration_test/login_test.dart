@@ -2,9 +2,14 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:nrental/screen/article_details_screen.dart';
+import 'package:nrental/screen/article_screen.dart';
 import 'package:nrental/screen/dashboard_screen.dart';
 import 'package:nrental/screen/login_screen.dart';
+import 'package:nrental/screen/profile_screen.dart';
 import 'package:nrental/screen/register_screen.dart';
+import 'package:nrental/screen/search_screen.dart';
+import 'package:nrental/screen/vehicle_screen.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +28,9 @@ void main() {
       home: const LoginScreen(),
     ));
     Finder username = find.byKey(const ValueKey('username'));
-    await tester.enterText(username, 'user1234');
+    await tester.enterText(username, 'admin');
     Finder password = find.byKey(const ValueKey('password'));
-    await tester.enterText(password, 'user1234');
+    await tester.enterText(password, 'admin');
     Finder signInBtn = find.byKey(const ValueKey('signInBtn'));
     // Finder btnSignUp = find.byKey(const ValueKey('signUpBtn'));
     await tester.tap(signInBtn);
@@ -46,10 +51,10 @@ void main() {
       home: const RegisterScreen(),
     ));
     Finder username = find.byKey(const ValueKey('username'));
-    await tester.enterText(username, 'user544444');
+    await tester.enterText(username, 'asasabbass');
     await tester.pumpAndSettle(const Duration(seconds: 1));
     Finder password = find.byKey(const ValueKey('password'));
-    await tester.enterText(password, 'user544444');
+    await tester.enterText(password, 'asasabbass');
     await tester.pumpAndSettle(const Duration(seconds: 1));
     Finder email = find.byKey(const ValueKey('email'));
     await tester.enterText(email, 'user543@gmail.com');
@@ -57,9 +62,77 @@ void main() {
     Finder phone = find.byKey(const ValueKey('phone'));
     await tester.enterText(phone, '23423423');
     await tester.pumpAndSettle(const Duration(seconds: 1));
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pumpAndSettle(const Duration(seconds: 1));
     Finder signUpBtn = find.byKey(const ValueKey('signUpBtn'));
     await tester.tap(signUpBtn);
     await tester.pumpAndSettle();
-    expect(find.text('Register success'), findsOneWidget);
+    expect(find.byKey(const ValueKey('signInBtn')), findsOneWidget);
+  });
+
+  testWidgets("Articles Get", (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      theme: ThemeData(
+        primaryColor: const Color.fromARGB(255, 234, 98, 7),
+        primarySwatch: Colors.red,
+        fontFamily: 'Poppins',
+      ),
+      routes: {
+        '/articleDetailsScreen': (context) => const ArticleDetailsScreen(),
+      },
+      home: const ArticleScreen(),
+    ));
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    Finder readMoreBtn =
+        find.byKey(const ValueKey('readMoreBtn Tesla is coming to Nepal'));
+    await tester.tap(readMoreBtn);
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    expect(find.text('Tesla is coming to Nepal'), findsOneWidget);
+  });
+  testWidgets("Vehicles Get", (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      theme: ThemeData(
+        primaryColor: const Color.fromARGB(255, 234, 98, 7),
+        primarySwatch: Colors.red,
+        fontFamily: 'Poppins',
+      ),
+      routes: {
+        '/vehicleScreen': (context) => const VehicleScreen(),
+      },
+      home: const SearchScreen(),
+    ));
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    Finder categoryBtn = find.byKey(const ValueKey('categoryBtn Bike'));
+    await tester.tap(categoryBtn);
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    Finder bookBtn = find.byKey(const ValueKey('bookBtn Yamaha MT-7'));
+    await tester.tap(bookBtn);
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    expect(find.text('Yamaha MT-7'), findsOneWidget);
+  });
+
+  testWidgets("Profile Update", (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      theme: ThemeData(
+        primaryColor: const Color.fromARGB(255, 234, 98, 7),
+        primarySwatch: Colors.red,
+        fontFamily: 'Poppins',
+      ),
+      routes: {
+        '/profileScreen': (context) => const ProfileScreen(),
+      },
+      home: const ProfileScreen(),
+    ));
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    Finder updateFormBtn = find.byKey(const ValueKey('updateFormBtn'));
+    await tester.tap(updateFormBtn);
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    Finder email = find.byKey(const ValueKey('addressText'));
+    await tester.enterText(email, 'kaushaltarrrr');
+    FocusManager.instance.primaryFocus?.unfocus();
+    Finder updateBtn = find.byKey(const ValueKey('updateBtn'));
+    await tester.tap(updateBtn);
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    expect(find.text('kaushaltar'), findsOneWidget);
   });
 }
