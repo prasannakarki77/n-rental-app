@@ -26,7 +26,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   _displayMessage(bool isDeleted) {
     if (isDeleted) {
       setState(() {});
-      displaySuccessMessage(context, "Booking canceled");
+      displaySuccessMessage(context, "Removed from favourites");
     } else {
       displayErrorMessage(context, "Booking Cancellation Failed");
     }

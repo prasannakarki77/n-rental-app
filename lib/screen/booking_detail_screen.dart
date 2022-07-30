@@ -60,7 +60,8 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
       setState(() {
         Navigator.pushNamed(context, '/dashboardScreen');
       });
-      _showNotification(vehicleName, "booking has been cancelled.", "Cancelled");
+      _showNotification(
+          vehicleName, "booking has been cancelled.", "Cancelled");
       _displayMessage(true, "Booking Cancelled");
     } else {
       Navigator.pop(context, 'ok');
@@ -242,6 +243,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                   child: SizedBox(
                     height: 40,
                     child: ElevatedButton.icon(
+                      key: const ValueKey('cancelBookingBtn'),
                       label: const Text(
                         'Cancel booking',
                         style: TextStyle(
@@ -766,6 +768,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                   const Text('Are you sure you want to cancel this booking?'),
               actions: <Widget>[
                 TextButton(
+                  key: const ValueKey('yesBtn'),
                   onPressed: () {
                     _deleteBooking(bookingId, vehicleName);
                   },

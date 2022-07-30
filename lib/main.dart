@@ -24,7 +24,6 @@ import 'package:nrental/wearos_screen/wearos_vehicle_screen.dart';
 import 'screen/register_screen.dart';
 
 void main() {
-  
   AwesomeNotifications().initialize(
     'resource://drawable/launcher',
     [
@@ -52,8 +51,8 @@ void main() {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        // '/': (context) => const SplashScreen(),
-        '/': (context) => const WearOSLoginScreen(),
+        '/': (context) => const SplashScreen(),
+        // '/': (context) => const WearOSLoginScreen(),
         '/registerScreen': (context) => const RegisterScreen(),
         '/loginScreen': (context) => const LoginScreen(),
         '/dashboardScreen': (context) => const DashboardScreen(),

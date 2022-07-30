@@ -37,19 +37,19 @@ void main() {
       bool expectedResult = true;
       User user = User(
         email: "prk.karki@gmail.com",
-        username: "admin11",
-        password: "admin11",
+        username: "admin112",
+        password: "admin112",
         phone: "234234324",
       );
       bool actualResult = await userRepository!.registerUser(user);
       expect(expectedResult, actualResult);
     });
     test("user login", () async {
-      bool expectedResult = true;
-      String username = "admin";
-      String password = "admin";
+      bool expected = true;
+      String username = "admin112";
+      String password = "admin112";
       bool actualResult = await userRepository!.loginUser(username, password);
-      expect(expectedResult, actualResult);
+      expect(expected, actualResult);
     });
 
     test("Get User Profile", () async {
@@ -114,7 +114,7 @@ void main() {
     test("Update Booking", () async {
       bool expectedResult = true;
       bool actualResult = false;
-      String bookingId = "62d9013b3aa33c20fe5aebf9";
+      String bookingId = "62d9013b3aa33c20fe5aebf43";
       Booking booking = Booking(
         booking_date: "2022-10-02",
         booking_time: "7:20",
@@ -191,7 +191,7 @@ void main() {
     test("Add Review", () async {
       bool expectedResult = true;
       bool actualResult = false;
-      String vehicleId = "62bd57a6bdc155ba1c6f70c4";
+      String vehicleId = "`62bd57a6bdc155ba1c6f70c43";
       Review review = Review(
           rating: "4",
           review: "It was easy to drive and there was no any problems.");

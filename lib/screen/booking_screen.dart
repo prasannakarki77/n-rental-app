@@ -15,68 +15,70 @@ class BookingScreen extends StatefulWidget {
 class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                Icons.car_rental_sharp,
-                color: Colors.red,
-                size: 30,
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Text(
-                "My Bookings",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.car_rental_sharp,
                   color: Colors.red,
+                  size: 30,
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          // bookingCard(),
-          // const SizedBox(
-          //   height: 20,
-          // ),
-          // bookingCard(),
-          FutureBuilder<BookingVehicleResponse?>(
-              future: BookingRepository().getBooking(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData) {
-                    List<BookingVehicle> lstBooking = snapshot.data!.data!;
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  "My Bookings",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            // bookingCard(),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            // bookingCard(),
+            FutureBuilder<BookingVehicleResponse?>(
+                future: BookingRepository().getBooking(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData) {
+                      List<BookingVehicle> lstBooking = snapshot.data!.data!;
 
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.data!.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final booking = lstBooking[index];
-                          return Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: bookingCard(booking));
-                        });
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.data!.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final booking = lstBooking[index];
+                            return Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: bookingCard(booking));
+                          });
+                    } else {
+                      return const Text("No data");
+                    }
                   } else {
-                    return const Text("No data");
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                      ),
+                    );
                   }
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                    ),
-                  );
-                }
-              }),
-        ]),
+                }),
+          ]),
+        ),
       ),
     );
   }
@@ -244,6 +246,8 @@ class _BookingScreenState extends State<BookingScreen> {
                   child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: ElevatedButton.icon(
+                      key: ValueKey(
+                          'viewDetailsBtn ${booking.vehicle_id.vehicle_name}'),
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromRGBO(255, 114, 94, 1),
                         shape: RoundedRectangleBorder(

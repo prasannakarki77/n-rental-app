@@ -42,6 +42,7 @@ class UserApi {
     try {
       response = await dio
           .post(url, data: {"username": username, "password": password});
+      print(response);
       if (response.statusCode == 201) {
         LoginResponse loginResponse = LoginResponse.fromJson(response.data);
         token = loginResponse.token;
@@ -180,19 +181,3 @@ _setDataToSharedPref(String token) async {
     debugPrint(e.toString());
   }
 }
-
-// _getDataFromSharedPref() async {
-//   // final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   // String? token = prefs.getString("token");
-//   // print(token);
-//   // return token;
-
-//   try {
-//     final SharedPreferences prefs = await SharedPreferences.getInstance();
-//     prefs.getString("token");
-//     String? token = prefs.getString("token");
-//     return token;
-//   } catch (e) {
-//     debugPrint(e.toString());
-//   }
-// }

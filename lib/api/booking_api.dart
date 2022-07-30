@@ -109,6 +109,7 @@ class BookingAPI {
           .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(getBookingDetailsUrl + bookingId,
           options: buildCacheOptions(const Duration(days: 7),
+              forceRefresh: true,
               options: Options(
                 headers: {
                   HttpHeaders.authorizationHeader: "Bearer $token",
@@ -116,7 +117,6 @@ class BookingAPI {
               )));
       if (response.statusCode == 201) {
         bookingDetailsResponse = BookingDetailsResponse.fromJson(response.data);
-        print("booo");
       } else {
         bookingDetailsResponse = null;
       }

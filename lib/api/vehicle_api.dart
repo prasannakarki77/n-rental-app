@@ -32,7 +32,6 @@ class VehicleAPI {
     VehicleResponse? vehicleResponse;
     try {
       var dio = HttpServices().getDioInstance();
-      
       dio.interceptors
           .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
       Response response = await dio.get(featuredVehicleUrl,
