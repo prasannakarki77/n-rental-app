@@ -111,26 +111,26 @@ In this project, MVVM (Model View ViewModel) design pattern is implemented. The 
 ### Tablet Screens
 
 <p class="text-center" align="center">
-<img  src="assets/images/tablet-splash-screen.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-sign-in.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-sign-up.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-home.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-nav.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/profile.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-profile-2.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-profile-3.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-profile4.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-article.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-article1.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-search.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-vehicle.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-vehicle1.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-booking.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-booking2.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-booking3.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-booking-4.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-review.png"  width="450" style="object-fit:contain; margin:10px;">
-<img  src="assets/images/tablet-favourite.png"  width="450" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-splash-screen.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-sign-in.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-sign-up.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-home.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-nav.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/profile.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-profile-2.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-profile-3.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-profile4.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-article.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-article1.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-search.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-vehicle.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-vehicle1.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-booking.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-booking2.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-booking3.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-booking-4.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-review.png"  width="400" style="object-fit:contain; margin:10px;">
+<img  src="assets/images/tablet-favourite.png"  width="400" style="object-fit:contain; margin:10px;">
 
 </p>
 
